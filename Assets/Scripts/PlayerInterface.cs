@@ -1,12 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerInterface : MonoBehaviour
 {
-    public Text m_BulletInterfaceText;
-    public Text m_HealthInterfaceText;
-    public Text m_ShieldInterfaceText;
+    public TextMeshProUGUI m_BulletInterfaceText;
+    public TextMeshProUGUI m_HealthInterfaceText;
+    public TextMeshProUGUI m_ShieldInterfaceText;
 
+    private void OnEnable()
+    {
+        FPSPlayerController.OnReload += UpdateBulletInterface;
+    }
+
+    private void OnDisable()
+    {
+        FPSPlayerController.OnReload -= UpdateBulletInterface;
+    }
     public void UpdateBulletInterface(int _currentBullets)
     {
         m_BulletInterfaceText.text = _currentBullets.ToString();

@@ -1,7 +1,10 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public class FPSPlayerController : MonoBehaviour
 {
 
@@ -32,6 +35,7 @@ public class FPSPlayerController : MonoBehaviour
     public KeyCode m_RightKey;
     public KeyCode m_UpKey;
     public KeyCode m_DownKey;
+    public KeyCode m_ReloadKey;
     public KeyCode m_RunKeyCode = KeyCode.LeftShift;
     public KeyCode m_JumpKey = KeyCode.Space;
 
@@ -69,8 +73,10 @@ public class FPSPlayerController : MonoBehaviour
     public float m_SpeedRecoilRotation;
     public int m_MaxAmountBullets;
     private int m_CurrentBullets;
+    private bool m_Reloading = false;
+    public Transform m_FirePoint;
 
-    
+    public static Action<int> OnReload;
 
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
@@ -155,6 +161,12 @@ public class FPSPlayerController : MonoBehaviour
 
 
         }
+        if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading)
+        {
+            m_CurrentBullets = m_MaxAmountBullets;
+            SetReloadAnimation();
+            OnReload.Invoke(m_CurrentBullets);
+        }
         else
         {
 
@@ -222,6 +234,12 @@ public class FPSPlayerController : MonoBehaviour
         StartCoroutine(EndShoot());
     }
 
+    void SetReloadAnimation()
+    {
+        m_MyAnimation.CrossFade(m_ReloadAnimation.name, 0.1f);
+        m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name, 0.1f);
+    }
+
     void Shoot()
     {
 
@@ -243,6 +261,7 @@ public class FPSPlayerController : MonoBehaviour
 
         m_FireTimer = 0.0f;
         m_CurrentBullets--;
+        OnReload.Invoke(m_CurrentBullets);
 
 
 
