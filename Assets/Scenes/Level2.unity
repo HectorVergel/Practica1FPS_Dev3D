@@ -977,6 +977,7 @@ MonoBehaviour:
   m_RightKey: 100
   m_UpKey: 119
   m_DownKey: 115
+  m_ReloadKey: 0
   m_RunKeyCode: 304
   m_JumpKey: 32
   m_JumpSpeed: 10
@@ -986,12 +987,20 @@ MonoBehaviour:
   m_FastSpeedFOV: 75
   m_IncreaseSpeedFOV: 55
   m_CoyoteTime: 0.1
+  m_BulletPrefab: {fileID: 0}
   m_MaxShootDistance: 50
   m_ShootingLayerMask:
     serializedVersion: 2
     m_Bits: 55
   m_decalPrefab: {fileID: 6745360622816664297, guid: c47deb140838edd44b61c4d552b5f2b5,
     type: 3}
+  m_SpreadFactor: 0
+  m_FireRate: 0
+  m_MaxRecoilRotation: 0
+  m_MinRecoilRotation: 0
+  m_SpeedRecoilRotation: 0
+  m_MaxAmountBullets: 0
+  m_FirePoint: {fileID: 0}
   m_DebugLockAngleKeyCode: 105
   m_DebugLockKeyCode: 111
   m_MyAnimation: {fileID: 1095296333}

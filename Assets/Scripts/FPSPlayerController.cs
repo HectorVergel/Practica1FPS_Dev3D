@@ -60,6 +60,7 @@ public class FPSPlayerController : MonoBehaviour
 
 
     [Header("Shoot")]
+    public GameObject m_BulletPrefab;
     public float m_MaxShootDistance = 50.0f;
     public LayerMask m_ShootingLayerMask;
     public GameObject m_decalPrefab;
@@ -252,12 +253,15 @@ public class FPSPlayerController : MonoBehaviour
         l_ShootDirection.x += Random.Range(-m_Spread*4.0f, m_Spread*4.0f);
         l_ShootDirection.y += Random.Range(-m_Spread, m_Spread);
 
+        GameObject go = Instantiate(m_BulletPrefab, m_Camera.transform.position, Quaternion.identity);
+        go.GetComponent<Bullet>().SetBulletDirection(l_ShootDirection);
+
         //ShootRecoil();
         m_Shooting = true;
         SetShootAnimation();
         RaycastHit l_raycastHit;
         if (Physics.Raycast(m_Camera.transform.position, l_ShootDirection, out l_raycastHit, m_MaxShootDistance, m_ShootingLayerMask.value))
-            CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
+            //CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
 
         m_FireTimer = 0.0f;
         m_CurrentBullets--;
