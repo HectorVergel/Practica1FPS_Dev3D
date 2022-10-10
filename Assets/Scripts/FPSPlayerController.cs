@@ -73,11 +73,12 @@ public class FPSPlayerController : MonoBehaviour
     public float m_MinRecoilRotation;
     public float m_SpeedRecoilRotation;
     public int m_MaxAmountBullets;
+    public int m_MaxChargerBullets;
     private int m_CurrentBullets;
     private bool m_Reloading = false;
     public Transform m_FirePoint;
-
-    public static Action<int> OnReload;
+    public GameObject m_ShootCanonEffect;
+    public static Action<int,int> OnReload;
 
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
@@ -96,7 +97,7 @@ public class FPSPlayerController : MonoBehaviour
         m_Pitch = pitchController.localRotation.x;
         m_FOV = m_NormalSpeedFOV;
         m_Life = GameController.GetGameController().GetPlayerLife();
-        m_CurrentBullets = m_MaxAmountBullets;
+        m_CurrentBullets = m_MaxChargerBullets;
         SetIdleWeaponAnimation();
 
     }
@@ -162,11 +163,16 @@ public class FPSPlayerController : MonoBehaviour
 
 
         }
-        if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading)
+        if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading && m_MaxAmountBullets > 0)
         {
+            m_MaxAmountBullets = m_MaxAmountBullets - (m_MaxChargerBullets - m_CurrentBullets) ;
+            m_MaxAmountBullets = (int)Mathf.Clamp(m_MaxAmountBullets,0, m_MaxAmountBullets);
             m_CurrentBullets = m_MaxAmountBullets;
+            m_CurrentBullets = (int)Mathf.Clamp(m_CurrentBullets, 0, m_MaxChargerBullets);
+
+
             SetReloadAnimation();
-            OnReload.Invoke(m_CurrentBullets);
+            OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
         }
         else
         {
@@ -247,6 +253,8 @@ public class FPSPlayerController : MonoBehaviour
 
         if (!CanShot() || m_CurrentBullets == 0) return;
 
+        Instantiate(m_ShootCanonEffect, m_FirePoint.position, Quaternion.identity);
+
         Vector3 l_ShootDirection = m_Camera.transform.forward;
 
         m_Spread += m_TimeShooting * m_SpreadFactor;
@@ -256,48 +264,19 @@ public class FPSPlayerController : MonoBehaviour
         GameObject go = Instantiate(m_BulletPrefab, m_Camera.transform.position, Quaternion.identity);
         go.GetComponent<Bullet>().SetBulletDirection(l_ShootDirection);
 
-        //ShootRecoil();
         m_Shooting = true;
         SetShootAnimation();
-        RaycastHit l_raycastHit;
-        if (Physics.Raycast(m_Camera.transform.position, l_ShootDirection, out l_raycastHit, m_MaxShootDistance, m_ShootingLayerMask.value))
-            //CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
-
+       
         m_FireTimer = 0.0f;
         m_CurrentBullets--;
-        OnReload.Invoke(m_CurrentBullets);
+        OnReload.Invoke(m_CurrentBullets,m_MaxAmountBullets);
 
 
 
     }
 
-   /* void ShootRecoil()
-    {
 
-        float l_recoilX = 0.0f;
-
-        if(pitchController.localRotation.x > m_MinRecoilRotation)
-        {
-            Debug.Log("Recoil!");
-            l_recoilX += m_SpeedRecoilRotation * Time.deltaTime;
-            m_Camera.transform.localRotation = Quaternion.Euler(-l_recoilX, 0, 0);
-        }
-
-        if (pitchController.localRotation.x < m_MaxRecoilRotation)
-        {
-            Debug.Log("No recoil");
-            l_recoilX -= m_SpeedRecoilRotation * Time.deltaTime;
-            m_Camera.transform.localRotation = Quaternion.Euler(-l_recoilX, 0, 0);
-        }
-        
-    }*/
-
-    void CreateShootHitParticles(Collider _collider, Vector3 position, Vector3 normal)
-    {
-        Debug.DrawRay(position, normal, Color.red, 5f);
-
-        Instantiate(m_decalPrefab, position, Quaternion.LookRotation(normal));
-    }
+  
     void SetGravity()
     {
         m_VerticalSpeed += Physics.gravity.y * Time.deltaTime - m_PlayerMass;
@@ -316,8 +295,8 @@ public class FPSPlayerController : MonoBehaviour
         }
 #endif
 
-        m_Yaw += m_YawRotationSpeed * l_MouseX * Time.deltaTime * (yawInverted ? -1f : 1f);
-        m_Pitch += m_PitchRotationSpeed * l_MouseY * Time.deltaTime * (pitchInverted ? -1f : 1f);
+        m_Yaw += m_YawRotationSpeed * l_MouseX * Time.fixedDeltaTime * (yawInverted ? -1f : 1f);
+        m_Pitch += m_PitchRotationSpeed * l_MouseY * Time.fixedDeltaTime * (pitchInverted ? -1f : 1f);
         m_Pitch = Mathf.Clamp(m_Pitch, m_MinPitch, m_MaxPitch);
 
 

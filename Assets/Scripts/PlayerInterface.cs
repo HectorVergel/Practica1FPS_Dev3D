@@ -4,7 +4,8 @@ using TMPro;
 
 public class PlayerInterface : MonoBehaviour
 {
-    public TextMeshProUGUI m_BulletInterfaceText;
+    public TextMeshProUGUI m_CurrentBulletInterfaceText;
+    public TextMeshProUGUI m_MaxBulletInterfaceText;
     public TextMeshProUGUI m_HealthInterfaceText;
     public TextMeshProUGUI m_ShieldInterfaceText;
 
@@ -17,9 +18,10 @@ public class PlayerInterface : MonoBehaviour
     {
         FPSPlayerController.OnReload -= UpdateBulletInterface;
     }
-    public void UpdateBulletInterface(int _currentBullets)
+    public void UpdateBulletInterface(int _currentBullets, int _maxBullets)
     {
-        m_BulletInterfaceText.text = _currentBullets.ToString();
+        m_CurrentBulletInterfaceText.text = _currentBullets.ToString();
+        m_MaxBulletInterfaceText.text ="/" +  _maxBullets.ToString();
     }
 
     public void UpdateHealthInterface(int _currentHealth)
