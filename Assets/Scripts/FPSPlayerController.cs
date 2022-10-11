@@ -81,6 +81,7 @@ public class FPSPlayerController : MonoBehaviour
     public Transform m_FirePoint;
     public GameObject m_ShootCanonEffect;
     public static Action<int,int> OnReload;
+    public static Action<int> OnPickAmmo;
 
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
@@ -228,6 +229,7 @@ public class FPSPlayerController : MonoBehaviour
     public void AddAmmo(int _ammoAmount)
     {
         m_MaxAmountBullets += _ammoAmount;
+        OnPickAmmo.Invoke(m_MaxAmountBullets);
     }
     bool CanShot()
     {

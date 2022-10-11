@@ -12,16 +12,24 @@ public class PlayerInterface : MonoBehaviour
     private void OnEnable()
     {
         FPSPlayerController.OnReload += UpdateBulletInterface;
+        FPSPlayerController.OnPickAmmo += UpdateBulletInterface;
     }
 
     private void OnDisable()
     {
         FPSPlayerController.OnReload -= UpdateBulletInterface;
+        FPSPlayerController.OnPickAmmo -= UpdateBulletInterface;
     }
     public void UpdateBulletInterface(int _currentBullets, int _maxBullets)
     {
         m_CurrentBulletInterfaceText.text = _currentBullets.ToString();
         m_MaxBulletInterfaceText.text ="/" +  _maxBullets.ToString();
+    }
+
+    public void UpdateBulletInterface(int _maxBullets)
+    {
+        
+        m_MaxBulletInterfaceText.text = "/" + _maxBullets.ToString();
     }
 
     public void UpdateHealthInterface(int _currentHealth)
