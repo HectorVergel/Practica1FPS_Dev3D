@@ -28,6 +28,8 @@ public class FPSPlayerController : MonoBehaviour
 
     private bool m_moving;
 
+    
+
     public CharacterController m_CharacterController;
     public float m_Speed;
     [Header("Inputs")]
@@ -90,6 +92,7 @@ public class FPSPlayerController : MonoBehaviour
     public AnimationClip m_IdleAnimation;
     public AnimationClip m_ShootAnimation;
     public AnimationClip m_ReloadAnimation;
+
     bool m_Shooting = false;
     void Start()
     {
@@ -155,7 +158,6 @@ public class FPSPlayerController : MonoBehaviour
         if (Input.GetKey(m_RunKeyCode))
         {
             l_Speed = m_Speed * m_FastSpeedMultiplier;
-
             if (m_FOV < m_FastSpeedFOV)
             {
                 m_FOV += m_IncreaseSpeedFOV * Time.deltaTime;
@@ -223,7 +225,10 @@ public class FPSPlayerController : MonoBehaviour
 
     }
 
-
+    public void AddAmmo(int _ammoAmount)
+    {
+        m_MaxAmountBullets += _ammoAmount;
+    }
     bool CanShot()
     {
         return !m_Shooting;
@@ -236,6 +241,7 @@ public class FPSPlayerController : MonoBehaviour
 
     void SetShootAnimation()
     {
+        
         m_MyAnimation.CrossFade(m_ShootAnimation.name, 0.1f);
         m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name, 0.1f);
         StartCoroutine(EndShoot());
@@ -246,6 +252,9 @@ public class FPSPlayerController : MonoBehaviour
         m_MyAnimation.CrossFade(m_ReloadAnimation.name, 0.1f);
         m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name, 0.1f);
     }
+
+
+   
 
     void Shoot()
     {
