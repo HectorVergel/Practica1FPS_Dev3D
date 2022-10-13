@@ -256,9 +256,10 @@ GameObject:
   - component: {fileID: 8592975677213585436}
   - component: {fileID: 8592975677213585435}
   - component: {fileID: 8592975677213585434}
+  - component: {fileID: 1086307805}
   m_Layer: 0
   m_Name: LifeItem
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,6 +309,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0798264, y: 2.4825525, z: 2.5793867}
   m_Center: {x: 0.096244395, y: 0.7412766, z: -0.10030842}
+--- !u!114 &1086307805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8592975677213585437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb22f88d6bd7534787d4aeebd9bfa92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthAdded: 10
 --- !u!1001 &5108537807319382405
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18433,8 +18433,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8067617, y: 1, z: 6.237437}
-  m_Center: {x: -0.0140328705, y: 0, z: 2.6187186}
+  m_Size: {x: 4.566614, y: 1, z: 6.237437}
+  m_Center: {x: -0.05725622, y: 0, z: 2.6187186}
 --- !u!114 &771358220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27396,28 +27396,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1081622656}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1086307804 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8592975677213585437, guid: e320c980db5d1fc4f803e37be53cb111,
-    type: 3}
-  m_PrefabInstance: {fileID: 1302803737}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1086307805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086307804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443a725d4131ad447996dca1cd10c7ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MyItemType: 1
-  m_AmmoAdded: 0
-  m_HealthAdded: 25
-  m_ShieldAdded: 0
 --- !u!1001 &1093700179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35911,7 +35889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CurrentHealth: 0
-  m_CurrentShield: 0
   m_MaxHealth: 100
   m_MaxShield: 100
 --- !u!4 &1373190462 stripped

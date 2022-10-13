@@ -20,6 +20,10 @@ public class Bullet : MonoBehaviour
 
         if (Physics.Raycast(transform.position, m_BulletDirection, out l_raycastHit, 1f, m_LayerMask.value))
         {
+            if(l_raycastHit.collider.tag == "DroneCollider")
+            {
+                l_raycastHit.collider.GetComponent<HitCollider>().Hit();
+            }
             CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
             Destroy(this.gameObject);
         }

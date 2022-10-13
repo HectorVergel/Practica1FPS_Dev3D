@@ -106,6 +106,7 @@ public class FPSPlayerController : MonoBehaviour
         m_Life = GameController.GetGameController().GetPlayerLife();
         m_CurrentBullets = m_MaxChargerBullets;
         SetIdleWeaponAnimation();
+        GameController.GetGameController().SetPlayer(this);
 
     }
 
@@ -227,61 +228,13 @@ public class FPSPlayerController : MonoBehaviour
         m_CurrentWeapon.AddAmmo(_ammoAmount);
         
     }
-    bool CanShot()
-    {
-        return !m_Shooting;
-    }
 
     void SetIdleWeaponAnimation()
     {
         m_MyAnimation.CrossFade(m_IdleAnimation.name);
     }
 
-    void SetShootAnimation()
-    {
-        
-        m_MyAnimation.CrossFade(m_ShootAnimation.name, 0.1f);
-        m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name, 0.1f);
-        StartCoroutine(EndShoot());
-    }
-
-    void SetReloadAnimation()
-    {
-        m_MyAnimation.CrossFade(m_ReloadAnimation.name, 0.1f);
-        m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name, 0.1f);
-    }
-
-
-   
-
-    void Shoot()
-    {
-
-
-        if (!CanShot() || m_CurrentBullets == 0) return;
-
-        Instantiate(m_ShootCanonEffect, m_FirePoint.position, Quaternion.identity);
-
-        Vector3 l_ShootDirection = m_Camera.transform.forward;
-
-        m_Spread += m_TimeShooting * m_SpreadFactor;
-        l_ShootDirection.x += Random.Range(-m_Spread*4.0f, m_Spread*4.0f);
-        l_ShootDirection.y += Random.Range(-m_Spread, m_Spread);
-
-        GameObject go = Instantiate(m_BulletPrefab, m_Camera.transform.position, Quaternion.identity);
-        go.GetComponent<Bullet>().SetBulletDirection(l_ShootDirection);
-
-        m_Shooting = true;
-        SetShootAnimation();
-       
-        m_FireTimer = 0.0f;
-        m_CurrentBullets--;
-        OnReload.Invoke(m_CurrentBullets,m_MaxAmountBullets);
-
-
-
-    }
-
+    
 
   
     void SetGravity()
@@ -351,6 +304,15 @@ public class FPSPlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(m_ShootAnimation.length);
         m_Shooting = false;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Item")
+        {
+            other.GetComponent<Item>().Pick(GetComponent<PlayerHealth>());
+        }
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public float m_CurrentHealth;
-    public float m_CurrentShield;
+    private float m_CurrentShield;
     public float m_MaxHealth;
     public float m_MaxShield;
 
@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
     
-    public void AddHealth(int _amount)
+    public void AddHealth(float _amount)
     {
         if (m_CurrentHealth < m_MaxHealth)
         {
@@ -68,5 +68,10 @@ public class PlayerHealth : MonoBehaviour
             OnShieldChange.Invoke(m_CurrentShield);
         }
 
+    }
+
+    public float GetLife()
+    {
+        return m_CurrentHealth;
     }
 }
