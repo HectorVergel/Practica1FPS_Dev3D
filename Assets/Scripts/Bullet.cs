@@ -20,7 +20,6 @@ public class Bullet : MonoBehaviour
 
         if (Physics.Raycast(transform.position, m_BulletDirection, out l_raycastHit, 1f, m_LayerMask.value))
         {
-            Debug.Log("HIT");
             CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
             Destroy(this.gameObject);
         }
@@ -29,7 +28,6 @@ public class Bullet : MonoBehaviour
 
     void CreateShootHitParticles(Collider _collider, Vector3 position, Vector3 normal)
     {
-        Debug.DrawRay(position, normal, Color.red, 5f);
 
         Instantiate(m_decalPrefab, position, Quaternion.LookRotation(normal));
     }

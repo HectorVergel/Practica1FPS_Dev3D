@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum Items
 {
-    Ammo, Health
+    Ammo, Health, Shield
 }
 public class ItemCollect : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class ItemCollect : MonoBehaviour
 
     public int m_AmmoAdded;
     public int m_HealthAdded;
+    public int m_ShieldAdded;
 
 
 
@@ -29,6 +30,8 @@ public class ItemCollect : MonoBehaviour
             _playerCol.GetComponent<FPSPlayerController>().AddAmmo(m_AmmoAdded);
         if (_type == Items.Health)
             _playerCol.GetComponent<PlayerHealth>().AddHealth(m_HealthAdded);
+        if(_type == Items.Shield)
+            _playerCol.GetComponent<PlayerHealth>().AddShield(m_ShieldAdded);
 
         Destroy(gameObject);
     }

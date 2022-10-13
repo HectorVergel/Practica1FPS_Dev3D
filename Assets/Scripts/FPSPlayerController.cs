@@ -62,15 +62,16 @@ public class FPSPlayerController : MonoBehaviour
 
 
     [Header("Shoot")]
+    public IWeapon m_CurrentWeapon;
     public GameObject m_BulletPrefab;
     public float m_MaxShootDistance = 50.0f;
     public LayerMask m_ShootingLayerMask;
     public GameObject m_decalPrefab;
     public float m_SpreadFactor;
-    private float m_Spread;
+    public float m_Spread;
     public float m_FireRate;
-    private float m_FireTimer;
-    private float m_TimeShooting;
+    public float m_FireTimer;
+    public float m_TimeShooting;
     public float m_MaxRecoilRotation;
     public float m_MinRecoilRotation;
     public float m_SpeedRecoilRotation;
@@ -82,6 +83,7 @@ public class FPSPlayerController : MonoBehaviour
     public GameObject m_ShootCanonEffect;
     public static Action<int,int> OnReload;
     public static Action<int> OnPickAmmo;
+    public static Action OnShoot;
 
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
@@ -97,6 +99,7 @@ public class FPSPlayerController : MonoBehaviour
     bool m_Shooting = false;
     void Start()
     {
+        m_CurrentWeapon = FindObjectOfType<Rifle>();
         m_Yaw = transform.rotation.y;
         m_Pitch = pitchController.localRotation.x;
         m_FOV = m_NormalSpeedFOV;
@@ -168,14 +171,7 @@ public class FPSPlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading && m_MaxAmountBullets > 0)
         {
-            m_MaxAmountBullets = m_MaxAmountBullets - (m_MaxChargerBullets - m_CurrentBullets) ;
-            m_MaxAmountBullets = (int)Mathf.Clamp(m_MaxAmountBullets,0, m_MaxAmountBullets);
-            m_CurrentBullets = m_MaxAmountBullets;
-            m_CurrentBullets = (int)Mathf.Clamp(m_CurrentBullets, 0, m_MaxChargerBullets);
-
-
-            SetReloadAnimation();
-            OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
+            m_CurrentWeapon.Reload();
         }
         else
         {
@@ -212,7 +208,7 @@ public class FPSPlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Shoot();
+            m_CurrentWeapon.Shoot();
             m_TimeShooting += Time.deltaTime;
         }
         else
@@ -228,8 +224,8 @@ public class FPSPlayerController : MonoBehaviour
 
     public void AddAmmo(int _ammoAmount)
     {
-        m_MaxAmountBullets += _ammoAmount;
-        OnPickAmmo.Invoke(m_MaxAmountBullets);
+        m_CurrentWeapon.AddAmmo(_ammoAmount);
+        
     }
     bool CanShot()
     {
@@ -357,4 +353,16 @@ public class FPSPlayerController : MonoBehaviour
         m_Shooting = false;
     }
 
+}
+
+
+
+public interface IWeapon
+{
+
+    void Shoot();
+
+    void Reload();
+
+    void AddAmmo(int amount);
 }

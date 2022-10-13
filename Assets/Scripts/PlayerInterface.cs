@@ -13,12 +13,17 @@ public class PlayerInterface : MonoBehaviour
     {
         FPSPlayerController.OnReload += UpdateBulletInterface;
         FPSPlayerController.OnPickAmmo += UpdateBulletInterface;
+        PlayerHealth.OnHealthChange += UpdateHealthInterface;
+        PlayerHealth.OnShieldChange += UpdateShieldInterface;
     }
 
     private void OnDisable()
     {
         FPSPlayerController.OnReload -= UpdateBulletInterface;
         FPSPlayerController.OnPickAmmo -= UpdateBulletInterface;
+        PlayerHealth.OnHealthChange -= UpdateHealthInterface;
+        PlayerHealth.OnShieldChange -= UpdateShieldInterface;
+
     }
     public void UpdateBulletInterface(int _currentBullets, int _maxBullets)
     {
@@ -32,13 +37,13 @@ public class PlayerInterface : MonoBehaviour
         m_MaxBulletInterfaceText.text = "/" + _maxBullets.ToString();
     }
 
-    public void UpdateHealthInterface(int _currentHealth)
+    public void UpdateHealthInterface(float _currentHealth)
     {
-
+        m_HealthInterfaceText.text = _currentHealth.ToString();
     }
 
-    public void UpdateShieldInterface(int _currentShield)
+    public void UpdateShieldInterface(float _currentShield)
     {
-
+        m_ShieldInterfaceText.text = _currentShield.ToString();
     }
 }
