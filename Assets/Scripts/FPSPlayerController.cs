@@ -62,7 +62,7 @@ public class FPSPlayerController : MonoBehaviour
 
 
     [Header("Shoot")]
-    public IWeapon m_CurrentWeapon;
+    public Weapon m_CurrentWeapon;
     public GameObject m_BulletPrefab;
     public float m_MaxShootDistance = 50.0f;
     public LayerMask m_ShootingLayerMask;
@@ -99,7 +99,7 @@ public class FPSPlayerController : MonoBehaviour
     bool m_Shooting = false;
     void Start()
     {
-        m_CurrentWeapon = FindObjectOfType<Rifle>();
+        m_CurrentWeapon = FindObjectOfType<Weapon>();
         m_Yaw = transform.rotation.y;
         m_Pitch = pitchController.localRotation.x;
         m_FOV = m_NormalSpeedFOV;
@@ -319,12 +319,3 @@ public class FPSPlayerController : MonoBehaviour
 
 
 
-public interface IWeapon
-{
-
-    void Shoot();
-
-    void Reload();
-
-    void AddAmmo(int amount);
-}

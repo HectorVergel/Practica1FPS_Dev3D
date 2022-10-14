@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Rifle : MonoBehaviour, IWeapon
+public class Weapon : MonoBehaviour
 {
     [Header("Shoot")]
     public GameObject m_BulletPrefab;
@@ -36,6 +36,8 @@ public class Rifle : MonoBehaviour, IWeapon
     private void Start()
     {
         m_CurrentBullets = m_MaxChargerBullets;
+        FPSPlayerController.OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
+
     }
     public void Reload()
     {

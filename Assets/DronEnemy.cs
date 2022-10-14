@@ -28,9 +28,15 @@ public class DronEnemy : MonoBehaviour
     public LayerMask m_SightLayer;
     public float m_EyesHeight = 1.0f;
     public float m_EyesPlayerHeight = 1.0f;
+
+    public float m_MaxHealth;
+    private float m_CurrentHealth;
+
+    public float m_RotationSpeed = 10.0f;
     private void Start()
     {
         SetIdleState();
+        m_CurrentHealth = m_MaxHealth;
 
     }
     private void Awake()
@@ -89,7 +95,33 @@ public class DronEnemy : MonoBehaviour
     }
     void UpdateAlertState()
     {
-        
+       
+        StartCoroutine(RotateDron());
+        SetPatrolState();
+       
+    }
+
+    IEnumerator RotateDron()
+    {
+        float l_StartRotation = transform.eulerAngles.y;
+        float l_EndRotation = l_StartRotation + 360.0f;
+        float l_YRotation = l_StartRotation;
+
+        while (l_YRotation <= l_EndRotation)
+        {
+            m_NavMeshAgent.isStopped = true;
+            l_YRotation += m_RotationSpeed * Time.deltaTime;
+            transform.eulerAngles =  new Vector3(transform.eulerAngles.x, l_YRotation, transform.eulerAngles.z);
+            Debug.Log(l_YRotation + " / " + l_EndRotation);
+            if (SeePlayer())
+            {
+                StopCoroutine(RotateDron());
+                SetChaseState();
+            }
+            
+            yield return null;
+        }
+
     }
 
     bool PatrolTargetPositionArrived()
@@ -138,10 +170,12 @@ public class DronEnemy : MonoBehaviour
     void SetPatrolState()
     {
         m_State = IState.PATROL;
+        m_NavMeshAgent.isStopped = false;
         m_NavMeshAgent.destination = m_PatrolTargets[m_CurrentPatrolTargetID].position;
     }
     void UpdatePatrolState()
     {
+        m_NavMeshAgent.isStopped = false;
         if (PatrolTargetPositionArrived())
         {
             MoveToNextPatrolPosition();
