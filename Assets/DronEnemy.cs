@@ -33,6 +33,7 @@ public class DronEnemy : MonoBehaviour
     private float m_CurrentHealth;
 
     public float m_RotationSpeed = 10.0f;
+    public float m_DistanceChase = 5.0f;
     private void Start()
     {
         SetIdleState();
@@ -100,7 +101,7 @@ public class DronEnemy : MonoBehaviour
         SetPatrolState();
        
     }
-
+    //NO HACER CORUTINA
     IEnumerator RotateDron()
     {
         float l_StartRotation = transform.eulerAngles.y;
@@ -112,12 +113,13 @@ public class DronEnemy : MonoBehaviour
             m_NavMeshAgent.isStopped = true;
             l_YRotation += m_RotationSpeed * Time.deltaTime;
             transform.eulerAngles =  new Vector3(transform.eulerAngles.x, l_YRotation, transform.eulerAngles.z);
-            Debug.Log(l_YRotation + " / " + l_EndRotation);
-            if (SeePlayer())
+            if (SeePlayer())    
             {
-                StopCoroutine(RotateDron());
+
                 SetChaseState();
+                
             }
+
             
             yield return null;
         }
@@ -182,6 +184,7 @@ public class DronEnemy : MonoBehaviour
         }
         if (HearsPlayer())
         {
+            
             SetAlertState();
         }
     }
@@ -215,11 +218,30 @@ public class DronEnemy : MonoBehaviour
 
     void SetChaseState()
     {
+        StopAllCoroutines();
         m_State = IState.CHASE;
     }
     void UpdateChaseState()
     {
+        MoveToPlayer();
+    }
 
+    void MoveToPlayer()
+    {
+        Debug.Log("MOVETO");
+        m_NavMeshAgent.isStopped = false;
+        Vector3 l_PlayerPosition = GameController.GetGameController().GetPlayer().transform.position;
+        m_NavMeshAgent.destination = l_PlayerPosition;
+        transform.LookAt(l_PlayerPosition);
+        if (Vector3.Distance(transform.position, l_PlayerPosition) <= m_DistanceChase)
+        {
+            m_NavMeshAgent.isStopped = true;
+        }
+        else
+        {
+            m_NavMeshAgent.isStopped = false;
+        }
+           
     }
 
     public void Hit(float _life)

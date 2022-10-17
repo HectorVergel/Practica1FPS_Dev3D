@@ -3497,7 +3497,7 @@ MonoBehaviour:
   - {fileID: 1389866060}
   - {fileID: 170657446}
   - {fileID: 1809971542}
-  m_HearRange: 5
+  m_HearRange: 8
   m_ConeVisualAngle: 60
   m_SightDistance: 8
   m_SightLayer:
@@ -3507,6 +3507,7 @@ MonoBehaviour:
   m_EyesPlayerHeight: 1
   m_MaxHealth: 50
   m_RotationSpeed: 180
+  m_DistanceChase: 7
 --- !u!195 &1963711935
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3619,7 +3620,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048394676}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 56.75, y: -1.02, z: 45.15}
+  m_LocalPosition: {x: 56.75, y: -0.92, z: 45.15}
   m_LocalScale: {x: 47.743877, y: 3, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}

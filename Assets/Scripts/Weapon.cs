@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
     {
         m_MaxAmountBullets = m_MaxAmountBullets - (m_MaxChargerBullets - m_CurrentBullets);
         m_MaxAmountBullets = (int)Mathf.Clamp(m_MaxAmountBullets, 0, m_MaxAmountBullets);
-        m_CurrentBullets = m_MaxAmountBullets;
+        m_CurrentBullets = m_MaxChargerBullets;
         m_CurrentBullets = (int)Mathf.Clamp(m_CurrentBullets, 0, m_MaxChargerBullets);
         FPSPlayerController.OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
         SetReloadAnimation();
