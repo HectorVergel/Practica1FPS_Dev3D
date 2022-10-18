@@ -34,6 +34,7 @@ public class DronEnemy : MonoBehaviour
 
     public float m_RotationSpeed = 10.0f;
     public float m_DistanceChase = 5.0f;
+    public float m_MaxDistanceChase = 12.0f;
     public float m_ShootMax = 7.0f;
 
     public float m_StartRotation;
@@ -238,6 +239,7 @@ public class DronEnemy : MonoBehaviour
     void UpdateAttackState()
     {
         Vector3 l_PlayerPosition = GameController.GetGameController().GetPlayer().transform.position;
+        transform.LookAt(l_PlayerPosition);
         if (Vector3.Distance(transform.position, l_PlayerPosition) <= m_ShootMax)
         {
             DronShoot();
@@ -311,6 +313,7 @@ public class DronEnemy : MonoBehaviour
         Vector3 l_PlayerPosition = GameController.GetGameController().GetPlayer().transform.position;
         m_NavMeshAgent.destination = l_PlayerPosition;
         transform.LookAt(l_PlayerPosition);
+        
         if (Vector3.Distance(transform.position, l_PlayerPosition) <= m_DistanceChase)
         {
             m_NavMeshAgent.isStopped = true;
@@ -319,6 +322,12 @@ public class DronEnemy : MonoBehaviour
         else
         {
             m_NavMeshAgent.isStopped = false;
+        }
+
+        if(Vector3.Distance(transform.position, l_PlayerPosition) >= m_MaxDistanceChase)
+        {
+            Debug.Log("hello");
+            SetPatrolState();
         }
 
     }
