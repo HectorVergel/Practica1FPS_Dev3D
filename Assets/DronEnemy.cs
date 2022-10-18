@@ -34,10 +34,19 @@ public class DronEnemy : MonoBehaviour
 
     public float m_RotationSpeed = 10.0f;
     public float m_DistanceChase = 5.0f;
+    public float m_ShootMax = 7.0f;
+
+    public float m_StartRotation;
+    public float m_EndRotation;
+    float m_YRotation;
+
+    public GameObject m_DronBullet;
+    public Transform m_ShootPoint;
     private void Start()
     {
         SetIdleState();
         m_CurrentHealth = m_MaxHealth;
+        
 
     }
     private void Awake()
@@ -91,18 +100,47 @@ public class DronEnemy : MonoBehaviour
 
     void SetAlertState()
     {
+        m_StartRotation = transform.eulerAngles.y;
+        m_EndRotation = m_StartRotation + 360f;
+        m_YRotation = m_StartRotation;
         m_State = IState.ALERT;
         
     }
     void UpdateAlertState()
     {
        
-        StartCoroutine(RotateDron());
-        SetPatrolState();
+        RotateDron();
+        
        
     }
     //NO HACER CORUTINA
-    IEnumerator RotateDron()
+
+    void RotateDron()
+    {
+        m_NavMeshAgent.isStopped = true;
+       
+
+        if(m_YRotation < m_EndRotation)
+        {
+            Debug.Log(m_YRotation + " / " + m_EndRotation);
+            m_YRotation += m_RotationSpeed * Time.deltaTime;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, m_YRotation, transform.eulerAngles.z);
+            if (SeePlayer())
+            {
+
+                SetChaseState();
+
+            }
+
+        }
+        else
+        {
+            SetPatrolState();
+        }
+       
+        
+    }
+    /*IEnumerator RotateDron()
     {
         float l_StartRotation = transform.eulerAngles.y;
         float l_EndRotation = l_StartRotation + 360.0f;
@@ -124,7 +162,7 @@ public class DronEnemy : MonoBehaviour
             yield return null;
         }
 
-    }
+    }*/
 
     bool PatrolTargetPositionArrived()
     {
@@ -142,7 +180,7 @@ public class DronEnemy : MonoBehaviour
     bool HearsPlayer()
     {
         Vector3 l_PlayerPosition = GameController.GetGameController().GetPlayer().transform.position;
-        return Vector3.Distance(l_PlayerPosition, transform.position) <= m_HearRange; 
+        return Vector3.Distance(l_PlayerPosition, transform.position) <= m_HearRange && GameController.GetGameController().GetPlayer().m_moving; 
     }
 
     bool SeePlayer()
@@ -195,7 +233,25 @@ public class DronEnemy : MonoBehaviour
     }
     void UpdateAttackState()
     {
+        Vector3 l_PlayerPosition = GameController.GetGameController().GetPlayer().transform.position;
+        if (Vector3.Distance(transform.position, l_PlayerPosition) <= m_ShootMax)
+        {
+            DronShoot();
+        }
+        else
+        {
+            SetChaseState();
+        }
+            
+    }
 
+    void DronShoot()
+    {
+        Vector3 l_ShootDirection = GameController.GetGameController().GetPlayer().transform.position - transform.position;
+        l_ShootDirection.Normalize();
+
+        GameObject go =  Instantiate(m_DronBullet, m_ShootPoint.position, Quaternion.identity);
+        go.GetComponent<Bullet>().SetBulletDirection(l_ShootDirection);
     }
 
     void SetHitState()
@@ -236,6 +292,7 @@ public class DronEnemy : MonoBehaviour
         if (Vector3.Distance(transform.position, l_PlayerPosition) <= m_DistanceChase)
         {
             m_NavMeshAgent.isStopped = true;
+            SetAttackState();
         }
         else
         {

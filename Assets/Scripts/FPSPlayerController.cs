@@ -26,7 +26,7 @@ public class FPSPlayerController : MonoBehaviour
     public bool yawInverted;
     public bool pitchInverted;
 
-    private bool m_moving;
+    public bool m_moving;
 
     
 
@@ -41,6 +41,7 @@ public class FPSPlayerController : MonoBehaviour
     public KeyCode m_RunKeyCode = KeyCode.LeftShift;
     public KeyCode m_JumpKey = KeyCode.Space;
 
+ 
     [Header(" ")]
     float m_VerticalSpeed = 0.0f;
     bool m_OnGround = true;
