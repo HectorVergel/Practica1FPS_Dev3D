@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2966931643865490400}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1225293558422903893}
   - component: {fileID: 7727285193419880279}
   - component: {fileID: 6780860490261231250}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 3922335474879179041}
   - component: {fileID: 2820944757395934118}
   - component: {fileID: 5926889696344997518}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9651,7 +9651,7 @@ GameObject:
   - component: {fileID: 8701594610364466759}
   - component: {fileID: 8932433473687708147}
   - component: {fileID: 8678399452216010598}
-  m_Layer: 1
+  m_Layer: 7
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14533,7 +14533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6745360622816664294}
   - component: {fileID: -8865557259215934053}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}

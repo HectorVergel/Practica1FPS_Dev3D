@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1383925133875514821}
   - component: {fileID: 1383925133875514823}
   - component: {fileID: 1383925133875514820}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CanonEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4872,7 +4872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1383925134185915893}
   - component: {fileID: 5227412733994070698}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4919,7 +4919,7 @@ GameObject:
   - component: {fileID: 1383925134230294105}
   - component: {fileID: 1383925134230294107}
   - component: {fileID: 1383925134230294104}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CanonEffect (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

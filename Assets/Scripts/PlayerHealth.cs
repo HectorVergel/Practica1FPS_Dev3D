@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public interface IHealth
+{
+    void TakeDamage(float amount);
+}
+public class PlayerHealth : MonoBehaviour, IHealth
 {
     public float m_CurrentHealth;
     private float m_CurrentShield;
@@ -11,6 +17,8 @@ public class PlayerHealth : MonoBehaviour
     public static Action<float> OnHealthChange;
     public static Action<float> OnShieldChange;
 
+    public Image m_DamageEffect;
+    public float m_AlphaSpeed;
 
     private void Start()
     {
@@ -21,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(m_CurrentHealth > 0.0f)
         {
+            StartCoroutine(FadeIn());
             if (m_CurrentShield > 0.0f)
             {
                 m_CurrentHealth -= _amountDamage * 0.25f;
@@ -47,6 +56,32 @@ public class PlayerHealth : MonoBehaviour
 
     }
     
+    IEnumerator FadeIn()
+    {
+        float l_CurrentAlpha = 0.0f;
+        while (m_DamageEffect.color.a <= 0.5f)
+        {
+            l_CurrentAlpha += m_AlphaSpeed * Time.deltaTime;
+            m_DamageEffect.color = new Color(m_DamageEffect.color.r, m_DamageEffect.color.g, m_DamageEffect.color.b, l_CurrentAlpha);
+             yield return null;
+        }
+        StartCoroutine(FadeOut());
+        
+    }
+
+    IEnumerator FadeOut()
+    {
+        
+        float l_CurrentAlpha = 0.5f;
+        while (m_DamageEffect.color.a > 0.0f)
+        {
+            l_CurrentAlpha -= m_AlphaSpeed * Time.deltaTime;
+            m_DamageEffect.color = new Color(m_DamageEffect.color.r, m_DamageEffect.color.g, m_DamageEffect.color.b, l_CurrentAlpha);
+            yield return null;
+        }
+
+
+    }
     public void AddHealth(float _amount)
     {
         if (m_CurrentHealth < m_MaxHealth)

@@ -22,9 +22,18 @@ public class Bullet : MonoBehaviour
         {
             if(l_raycastHit.collider.tag == "DroneCollider")
             {
+               
                 l_raycastHit.collider.GetComponent<HitCollider>().Hit();
             }
-            CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
+            if(l_raycastHit.collider.tag == "Player")
+            {
+                l_raycastHit.collider.GetComponent<PlayerHealth>().TakeDamage(m_BulletDamage);
+            }
+            if(m_decalPrefab != null)
+            {
+                CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
+
+            }
             Destroy(this.gameObject);
         }
            
