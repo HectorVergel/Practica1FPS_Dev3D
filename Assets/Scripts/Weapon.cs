@@ -55,7 +55,8 @@ public class Weapon : MonoBehaviour
 
         if (!CanShot() || m_CurrentBullets == 0) return;
 
-        Instantiate(m_ShootCanonEffect, m_FirePoint.position, Quaternion.identity);
+        GameObject particle = Instantiate(m_ShootCanonEffect, m_FirePoint.position, Quaternion.identity);
+        particle.transform.SetParent(m_FirePoint);
 
         Vector3 l_ShootDirection = m_Camera.transform.forward;
 

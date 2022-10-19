@@ -28,13 +28,13 @@ public class PlayerInterface : MonoBehaviour
     public void UpdateBulletInterface(int _currentBullets, int _maxBullets)
     {
         m_CurrentBulletInterfaceText.text = _currentBullets.ToString();
-        m_MaxBulletInterfaceText.text ="/" +  _maxBullets.ToString();
+        m_MaxBulletInterfaceText.text =  _maxBullets.ToString();
     }
 
     public void UpdateBulletInterface(int _maxBullets)
     {
         
-        m_MaxBulletInterfaceText.text = "/" + _maxBullets.ToString();
+        m_MaxBulletInterfaceText.text =  _maxBullets.ToString();
     }
 
     public void UpdateHealthInterface(float _currentHealth)
