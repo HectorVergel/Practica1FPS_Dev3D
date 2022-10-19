@@ -96,6 +96,9 @@ public class FPSPlayerController : MonoBehaviour
     public AnimationClip m_IdleAnimation;
     public AnimationClip m_ShootAnimation;
     public AnimationClip m_ReloadAnimation;
+    public AnimationClip m_RunAnimation;
+
+    bool m_IsRunning = false;
 
     bool m_Shooting = false;
     void Start()
@@ -140,6 +143,7 @@ public class FPSPlayerController : MonoBehaviour
         Vector3 l_Direction = Vector3.zero;
         float l_Speed = m_Speed;
 
+        
         //Inputs
         if (Input.GetKey(m_UpKey))
         {
@@ -164,12 +168,17 @@ public class FPSPlayerController : MonoBehaviour
         if (Input.GetKey(m_RunKeyCode))
         {
             l_Speed = m_Speed * m_FastSpeedMultiplier;
+           m_IsRunning = true;
             if (m_FOV < m_FastSpeedFOV)
             {
                 m_FOV += m_IncreaseSpeedFOV * Time.deltaTime;
             }
 
 
+        }
+        else
+        {
+            m_IsRunning = false;
         }
         if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading && m_MaxAmountBullets > 0)
         {
@@ -185,6 +194,7 @@ public class FPSPlayerController : MonoBehaviour
 
 
         }
+
 
         CheckIfMoving(l_Direction);
 
@@ -233,6 +243,17 @@ public class FPSPlayerController : MonoBehaviour
     void SetIdleWeaponAnimation()
     {
         m_MyAnimation.CrossFade(m_IdleAnimation.name);
+    }
+
+
+    void SetRunAnimation()
+    {
+        
+        m_MyAnimation.CrossFade(m_RunAnimation.name);
+        m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name);
+            
+        
+       
     }
 
     

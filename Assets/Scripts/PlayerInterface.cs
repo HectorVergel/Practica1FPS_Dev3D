@@ -9,6 +9,9 @@ public class PlayerInterface : MonoBehaviour
     public TextMeshProUGUI m_HealthInterfaceText;
     public TextMeshProUGUI m_ShieldInterfaceText;
 
+    public Image m_HealthImage;
+    public Image m_ShieldImage;
+
     private void OnEnable()
     {
         FPSPlayerController.OnReload += UpdateBulletInterface;
@@ -40,10 +43,12 @@ public class PlayerInterface : MonoBehaviour
     public void UpdateHealthInterface(float _currentHealth)
     {
         m_HealthInterfaceText.text = _currentHealth.ToString();
+        m_HealthImage.fillAmount = _currentHealth / 100.0f;
     }
 
     public void UpdateShieldInterface(float _currentShield)
     {
         m_ShieldInterfaceText.text = _currentShield.ToString();
+        m_ShieldImage.fillAmount = _currentShield / 100.0f;
     }
 }
