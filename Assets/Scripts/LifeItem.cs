@@ -1,11 +1,11 @@
 ﻿public class LifeItem : Item
 {
     public float m_HealthAdded;
-    public override void Pick(PlayerHealth Player)
+    public override void Pick(FPSPlayerController Player)
     {
-        if(Player.GetLife() < Player.m_MaxHealth)
+        if(Player.m_PlayerHealth.GetLife() < Player.m_PlayerHealth.m_MaxHealth)
         {
-            Player.AddHealth(m_HealthAdded);
+            Player.m_PlayerHealth.AddHealth(m_HealthAdded);
             Destroy(gameObject);
         }
     }

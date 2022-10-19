@@ -101,6 +101,10 @@ public class FPSPlayerController : MonoBehaviour
     bool m_IsRunning = false;
 
     bool m_Shooting = false;
+
+    public PlayerHealth m_PlayerHealth;
+
+    public bool m_HaveKey;
     void Start()
     {
         m_CurrentWeapon = FindObjectOfType<Weapon>();
@@ -110,6 +114,7 @@ public class FPSPlayerController : MonoBehaviour
         m_Life = GameController.GetGameController().GetPlayerLife();
         m_CurrentBullets = m_MaxChargerBullets;
         SetIdleWeaponAnimation();
+        m_PlayerHealth = GetComponent<PlayerHealth>();
         GameController.GetGameController().SetPlayer(this);
 
     }
@@ -333,7 +338,7 @@ public class FPSPlayerController : MonoBehaviour
     {
         if(other.tag == "Item")
         {
-            other.GetComponent<Item>().Pick(GetComponent<PlayerHealth>());
+            other.GetComponent<Item>().Pick(this);
         }
     }
 

@@ -2,5 +2,5 @@
 
 public abstract class Item: MonoBehaviour
 {
-    public abstract void Pick(PlayerHealth Player);
+    public abstract void Pick(FPSPlayerController Player);
 }
