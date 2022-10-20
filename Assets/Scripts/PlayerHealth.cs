@@ -10,7 +10,7 @@ public interface IHealth
 public class PlayerHealth : MonoBehaviour, IHealth
 {
     public float m_CurrentHealth;
-    private float m_CurrentShield;
+    public float m_CurrentShield;
     public float m_MaxHealth;
     public float m_MaxShield;
 
@@ -47,13 +47,19 @@ public class PlayerHealth : MonoBehaviour, IHealth
             OnShieldChange.Invoke(m_CurrentShield);
            
         }
-        else
+        if(m_CurrentHealth <= 0.0f)
         {
-            Destroy(gameObject);
+            OnDie();
         }
         
 
 
+    }
+
+    public void OnDie()
+    {
+        m_CurrentHealth = 0.0f;
+        GameController.GetGameController().RestartGame();
     }
     
     IEnumerator FadeIn()

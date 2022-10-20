@@ -51,4 +51,10 @@ public class GameController : MonoBehaviour
     {
         m_Player = _player;
     }
+
+    public void RestartGame()
+    {
+        m_Player.RestartGame();
+        //Añadir enemigos etc
+    }
 }

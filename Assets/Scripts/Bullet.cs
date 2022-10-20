@@ -9,7 +9,12 @@ public class Bullet : MonoBehaviour
     public float m_BulletDamage;
     private Vector3 m_BulletDirection;
     public GameObject m_decalPrefab;
+    TCObjectPool m_DecalPool;
 
+    private void Start()
+    {
+        m_DecalPool = new TCObjectPool(20,m_decalPrefab);
+    }
 
     void Update()
     {
@@ -18,7 +23,7 @@ public class Bullet : MonoBehaviour
 
         RaycastHit l_raycastHit;
 
-        if (Physics.Raycast(transform.position, m_BulletDirection, out l_raycastHit, 0.1f, m_LayerMask.value))
+        if (Physics.Raycast(transform.position, m_BulletDirection, out l_raycastHit, 1.0f, m_LayerMask.value))
         {
             if (l_raycastHit.collider.tag == "DroneCollider")
             {
@@ -38,7 +43,7 @@ public class Bullet : MonoBehaviour
                 CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
 
             }
-            Destroy(this.gameObject, 1f);
+            Destroy(this.gameObject);
         }
 
     }
@@ -46,7 +51,11 @@ public class Bullet : MonoBehaviour
     void CreateShootHitParticles(Collider _collider, Vector3 position, Vector3 normal)
     {
 
-        Instantiate(m_decalPrefab, position, Quaternion.LookRotation(normal));
+        GameObject l_Decal = m_DecalPool.GetNextElement();
+        l_Decal.SetActive(true);
+        l_Decal.transform.position = position;
+        l_Decal.transform.rotation = Quaternion.LookRotation(normal);
+        l_Decal.transform.SetParent(_collider.transform);
     }
     public void SetBulletDirection(Vector3 _direction)
     {

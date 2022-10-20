@@ -105,6 +105,9 @@ public class FPSPlayerController : MonoBehaviour
     public PlayerHealth m_PlayerHealth;
 
     public bool m_HaveKey;
+
+    Vector3 m_StartPosition;
+    Quaternion m_StartRotation;
     void Start()
     {
         m_CurrentWeapon = FindObjectOfType<Weapon>();
@@ -116,7 +119,8 @@ public class FPSPlayerController : MonoBehaviour
         SetIdleWeaponAnimation();
         m_PlayerHealth = GetComponent<PlayerHealth>();
         GameController.GetGameController().SetPlayer(this);
-
+        m_StartRotation = transform.rotation;
+        m_StartPosition = transform.position;
     }
 
 #if UNITY_EDITOR
@@ -340,6 +344,20 @@ public class FPSPlayerController : MonoBehaviour
         {
             other.GetComponent<Item>().Pick(this);
         }
+        else if(other.tag == "DeadZone")
+        {
+            m_PlayerHealth.OnDie();
+        }
+    }
+
+    public void RestartGame()
+    {
+        m_PlayerHealth.m_CurrentHealth = 100.0f;
+        m_PlayerHealth.m_CurrentShield = 100.0f;
+        m_CharacterController.enabled = false;
+        transform.rotation = m_StartRotation;
+        transform.position = m_StartPosition;
+        m_CharacterController.enabled = true;
     }
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class DronEnemy : MonoBehaviour
 {
@@ -48,11 +49,15 @@ public class DronEnemy : MonoBehaviour
 
     public Animation m_MyAnimation;
     public AnimationClip m_DieAnimationDrone;
+
+    public Image m_LifeBarImage;
+    public Transform m_LifeBarAnchorPosition;
+    public RectTransform m_LifeBarRectTransform;
     private void Start()
     {
         SetIdleState();
         m_CurrentHealth = m_MaxHealth;
-
+        m_LifeBarImage.fillAmount = m_CurrentHealth;
 
     }
     private void Awake()
@@ -61,6 +66,7 @@ public class DronEnemy : MonoBehaviour
     }
     private void Update()
     {
+        UpdateLifeBarPosition();
         switch (m_State)
         {
             case IState.IDLE:
@@ -308,12 +314,12 @@ public class DronEnemy : MonoBehaviour
 
     void MoveToPlayer()
     {
-        
+
         m_NavMeshAgent.isStopped = false;
         Vector3 l_PlayerPosition = GameController.GetGameController().GetPlayer().transform.position;
         m_NavMeshAgent.destination = l_PlayerPosition;
         transform.LookAt(l_PlayerPosition);
-        
+
         if (Vector3.Distance(transform.position, l_PlayerPosition) <= m_DistanceChase)
         {
             m_NavMeshAgent.isStopped = true;
@@ -324,7 +330,7 @@ public class DronEnemy : MonoBehaviour
             m_NavMeshAgent.isStopped = false;
         }
 
-        if(Vector3.Distance(transform.position, l_PlayerPosition) >= m_MaxDistanceChase)
+        if (Vector3.Distance(transform.position, l_PlayerPosition) >= m_MaxDistanceChase)
         {
             Debug.Log("hello");
             SetPatrolState();
@@ -337,11 +343,19 @@ public class DronEnemy : MonoBehaviour
         if (m_CurrentHealth > 0.0f)
         {
             m_CurrentHealth -= _damage;
+            m_LifeBarImage.fillAmount = m_CurrentHealth / 100.0f;
 
         }
-        else
+        if(m_CurrentHealth <= 0.0f)
         {
             SetDieState();
         }
+    }
+
+    void UpdateLifeBarPosition()
+    {
+        Vector3 l_Position = GameController.GetGameController().GetPlayer().m_Camera.WorldToViewportPoint(m_LifeBarAnchorPosition.position);
+        m_LifeBarRectTransform.anchoredPosition = new Vector3(l_Position.x * 1920.0f, -(1080.0f - l_Position.y * 1080.0f), 0.0f);
+        m_LifeBarRectTransform.gameObject.SetActive(l_Position.z > 0.0f);
     }
 }

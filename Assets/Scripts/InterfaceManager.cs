@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerInterface : MonoBehaviour
+public class InterfaceManager : MonoBehaviour
 {
     public TextMeshProUGUI m_CurrentBulletInterfaceText;
     public TextMeshProUGUI m_MaxBulletInterfaceText;
