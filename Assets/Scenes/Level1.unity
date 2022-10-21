@@ -1495,15 +1495,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095296329}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29, y: 3.27, z: 46.4}
+  m_LocalRotation: {x: -0, y: -0.80911034, z: -0, w: 0.58765686}
+  m_LocalPosition: {x: 73, y: 3.27, z: 75.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409278909}
   - {fileID: 750527941}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -108.018, z: 0}
 --- !u!114 &1095296331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1525,6 +1525,7 @@ MonoBehaviour:
   pitchController: {fileID: 750527941}
   yawInverted: 0
   pitchInverted: 1
+  m_moving: 0
   m_CharacterController: {fileID: 1095296332}
   m_Speed: 10
   m_LeftKey: 97
@@ -1541,6 +1542,7 @@ MonoBehaviour:
   m_FastSpeedFOV: 75
   m_IncreaseSpeedFOV: 55
   m_CoyoteTime: 0.1
+  m_CurrentWeapon: {fileID: 0}
   m_BulletPrefab: {fileID: 3859844212120588308, guid: b1b9968e0f4462f4ca9faad9265396d3,
     type: 3}
   m_MaxShootDistance: 50
@@ -1550,18 +1552,26 @@ MonoBehaviour:
   m_decalPrefab: {fileID: 6745360622816664297, guid: c47deb140838edd44b61c4d552b5f2b5,
     type: 3}
   m_SpreadFactor: 0.015
+  m_Spread: 0
   m_FireRate: 0.25
+  m_FireTimer: 0
+  m_TimeShooting: 0
   m_MaxRecoilRotation: 0
   m_MinRecoilRotation: -7
   m_SpeedRecoilRotation: 10
   m_MaxAmountBullets: 30
+  m_MaxChargerBullets: 0
   m_FirePoint: {fileID: 1881182563}
+  m_ShootCanonEffect: {fileID: 0}
   m_DebugLockAngleKeyCode: 105
   m_DebugLockKeyCode: 111
   m_MyAnimation: {fileID: 1095296333}
   m_IdleAnimation: {fileID: 7400000, guid: cd2b2b630d3f05a419d28739f3e52556, type: 2}
   m_ShootAnimation: {fileID: 7400000, guid: e05a3cd8c978c314d85567f9bf835597, type: 2}
   m_ReloadAnimation: {fileID: 7400000, guid: 2d221e30e294553429086acc69297c2c, type: 2}
+  m_RunAnimation: {fileID: 0}
+  m_PlayerHealth: {fileID: 0}
+  m_HaveKey: 0
 --- !u!143 &1095296332
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2618,9 +2628,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e16402c9527a946a6e8670021350f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BulletInterfaceText: {fileID: 513112031}
+  m_CurrentBulletInterfaceText: {fileID: 0}
+  m_MaxBulletInterfaceText: {fileID: 0}
   m_HealthInterfaceText: {fileID: 0}
   m_ShieldInterfaceText: {fileID: 0}
+  m_HealthImage: {fileID: 0}
+  m_ShieldImage: {fileID: 0}
+  m_Crosshair: {fileID: 0}
+  m_EnemyCrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+  m_CrosshairColor: {r: 0, g: 0, b: 0, a: 0}
+  m_MyAnimationHealth: {fileID: 0}
+  m_MyAnimationShield: {fileID: 0}
+  m_HealthClip: {fileID: 0}
+  m_ShieldClip: {fileID: 0}
+  m_MainCamera: {fileID: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2105462925
 GameObject:
   m_ObjectHideFlags: 0
