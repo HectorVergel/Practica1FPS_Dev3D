@@ -114,13 +114,15 @@ public class FPSPlayerController : MonoBehaviour
         m_Yaw = transform.rotation.y;
         m_Pitch = pitchController.localRotation.x;
         m_FOV = m_NormalSpeedFOV;
-        m_Life = GameController.GetGameController().GetPlayerLife();
         m_CurrentBullets = m_MaxChargerBullets;
         SetIdleWeaponAnimation();
         m_PlayerHealth = GetComponent<PlayerHealth>();
         GameController.GetGameController().SetPlayer(this);
         m_StartRotation = transform.rotation;
         m_StartPosition = transform.position;
+       
+        m_CurrentBullets = GameController.GetGameController().GetPlayerCurrentBullets();
+        m_CurrentBullets = GameController.GetGameController().GetPlayerMaxBullets();
     }
 
 #if UNITY_EDITOR
@@ -354,9 +356,11 @@ public class FPSPlayerController : MonoBehaviour
     {
         m_PlayerHealth.m_CurrentHealth = 100.0f;
         m_PlayerHealth.m_CurrentShield = 100.0f;
+        m_CurrentBullets = m_MaxChargerBullets;
+        m_MaxAmountBullets = GameController.GetGameController().GetPlayerCurrentBullets();
         m_CharacterController.enabled = false;
         transform.rotation = m_StartRotation;
-        transform.position = m_StartPosition;
+        transform.position = GameController.GetGameController().GetLevel().GetLastCheckPoint().position;
         m_CharacterController.enabled = true;
     }
 

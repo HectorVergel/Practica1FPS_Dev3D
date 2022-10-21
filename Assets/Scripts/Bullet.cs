@@ -36,7 +36,8 @@ public class Bullet : MonoBehaviour
             }
             if (l_raycastHit.collider.tag == "ShootingElement")
             {
-                Destroy(l_raycastHit.collider.gameObject);
+
+                l_raycastHit.collider.GetComponent<ShootingElement>().OnBulletHit();
             }
             if (m_decalPrefab != null)
             {

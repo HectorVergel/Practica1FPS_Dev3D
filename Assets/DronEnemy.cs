@@ -53,6 +53,9 @@ public class DronEnemy : MonoBehaviour
     public Image m_LifeBarImage;
     public Transform m_LifeBarAnchorPosition;
     public RectTransform m_LifeBarRectTransform;
+
+    public GameObject m_DieEffect;
+    public Transform m_EffectPositionDrone;
     private void Start()
     {
         SetIdleState();
@@ -283,15 +286,19 @@ public class DronEnemy : MonoBehaviour
 
     void SetDieState()
     {
+        StartCoroutine(DieDrone());
         m_State = IState.DIE;
+
     }
     void UpdateDieState()
     {
-        StartCoroutine(DieDrone());
+        
+       
     }
 
     IEnumerator DieDrone()
     {
+        Instantiate(m_DieEffect, m_EffectPositionDrone.position, Quaternion.identity);
         SetDieAnimation();
         yield return new WaitForSeconds(m_DieAnimationDrone.length);
         Destroy(gameObject);
@@ -299,6 +306,7 @@ public class DronEnemy : MonoBehaviour
 
     void SetDieAnimation()
     {
+        
         m_MyAnimation.CrossFade(m_DieAnimationDrone.name, 0.1f);
     }
 

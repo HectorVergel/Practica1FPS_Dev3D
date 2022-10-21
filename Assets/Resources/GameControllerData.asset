@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: GameControllerData
   m_EditorClassIdentifier: 
   m_Health: 100
+  m_Shield: 100
+  m_CurrentBullets: 30
+  m_MaxBullets: 120

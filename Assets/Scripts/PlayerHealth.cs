@@ -22,8 +22,10 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Start()
     {
-        m_CurrentHealth = m_MaxHealth;
-        m_CurrentShield = m_MaxShield;
+        m_CurrentHealth = GameController.GetGameController().GetPlayerLife();
+        m_CurrentShield = GameController.GetGameController().GetPlayerShield();
+        OnHealthChange.Invoke(m_CurrentHealth);
+        OnShieldChange.Invoke(m_CurrentShield);
     }
     public void TakeDamage(float _amountDamage)
     {

@@ -11,7 +11,26 @@ public class InterfaceManager : MonoBehaviour
 
     public Image m_HealthImage;
     public Image m_ShieldImage;
+    public Image m_Crosshair;
+    public Color m_EnemyCrosshairColor;
+    public Color m_CrosshairColor;
 
+    public Animation m_MyAnimationHealth;
+    public Animation m_MyAnimationShield;
+    public AnimationClip m_HealthClip;
+    public AnimationClip m_ShieldClip;
+
+    public Camera m_MainCamera;
+    public LayerMask m_LayerMask;
+    private void Start()
+    {
+        GameController.GetGameController().SetInterface(this);
+    }
+
+    private void Update()
+    {
+        UpdateCrosshair();
+    }
     private void OnEnable()
     {
         FPSPlayerController.OnReload += UpdateBulletInterface;
@@ -44,11 +63,37 @@ public class InterfaceManager : MonoBehaviour
     {
         m_HealthInterfaceText.text = _currentHealth.ToString();
         m_HealthImage.fillAmount = _currentHealth / 100.0f;
+        m_MyAnimationHealth.Play(m_HealthClip.name);
     }
 
     public void UpdateShieldInterface(float _currentShield)
     {
         m_ShieldInterfaceText.text = _currentShield.ToString();
         m_ShieldImage.fillAmount = _currentShield / 100.0f;
+        m_MyAnimationShield.Play(m_ShieldClip.name);
+    }
+
+    public void RestartGame()
+    {
+        GameControllerData l_GameControllerData = Resources.Load<GameControllerData>("GameControllerData");
+        UpdateHealthInterface(l_GameControllerData.m_Health);
+        UpdateShieldInterface(l_GameControllerData.m_Shield);
+        UpdateBulletInterface(l_GameControllerData.m_CurrentBullets, l_GameControllerData.m_MaxBullets);
+        
+    }
+
+    public void UpdateCrosshair()
+    {
+        RaycastHit l_raycastHit;
+        if (Physics.Raycast(GameController.GetGameController().GetPlayer().m_CurrentWeapon.m_Camera.transform.position, GameController.GetGameController().GetPlayer().m_CurrentWeapon.m_Camera.transform.forward, out l_raycastHit, 100.0f, m_LayerMask.value))
+        {
+            m_Crosshair.color = m_EnemyCrosshairColor;
+            Debug.Log("Color");
+        }
+        else
+        {
+            m_Crosshair.color = m_CrosshairColor;
+        }
+
     }
 }

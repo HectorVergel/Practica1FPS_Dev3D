@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ShootingElement : MonoBehaviour
 {
-
-    private void OnTriggerEnter(Collider other)
+    public GameObject m_Effect;
+    public Transform m_EffectPoint;
+    public void OnBulletHit()
     {
-        
-        if (other.tag == "Bullet")
+        if (m_Effect != null)
         {
-            Debug.Log("in");
-            gameObject.SetActive(false);
+            Instantiate(m_Effect, m_EffectPoint.position, Quaternion.identity);
         }
+        this.gameObject.SetActive(false);
     }
+
+
+
 }
