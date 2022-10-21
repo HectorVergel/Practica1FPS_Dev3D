@@ -28,6 +28,7 @@ public class FPSPlayerController : MonoBehaviour
 
     public bool m_moving;
 
+
     
 
     public CharacterController m_CharacterController;
@@ -178,7 +179,7 @@ public class FPSPlayerController : MonoBehaviour
         }
         if (Input.GetKey(m_RunKeyCode))
         {
-            l_Speed = m_Speed * m_FastSpeedMultiplier;
+           l_Speed = m_Speed * m_FastSpeedMultiplier;
            m_IsRunning = true;
             if (m_FOV < m_FastSpeedFOV)
             {
@@ -238,6 +239,15 @@ public class FPSPlayerController : MonoBehaviour
         {
             m_TimeShooting = 0.0f;
             m_Spread = 0.0f;
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            m_Camera.fieldOfView = 40.0f;
+        }
+        else
+        {
+            m_Camera.fieldOfView = 60.0f;
         }
 
         if (m_FireTimer < m_FireRate)

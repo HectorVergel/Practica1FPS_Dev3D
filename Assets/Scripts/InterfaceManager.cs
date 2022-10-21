@@ -61,14 +61,14 @@ public class InterfaceManager : MonoBehaviour
 
     public void UpdateHealthInterface(float _currentHealth)
     {
-        m_HealthInterfaceText.text = _currentHealth.ToString();
+        m_HealthInterfaceText.text = ((int)_currentHealth).ToString();
         m_HealthImage.fillAmount = _currentHealth / 100.0f;
         m_MyAnimationHealth.Play(m_HealthClip.name);
     }
 
     public void UpdateShieldInterface(float _currentShield)
     {
-        m_ShieldInterfaceText.text = _currentShield.ToString();
+        m_ShieldInterfaceText.text = ((int)_currentShield).ToString();
         m_ShieldImage.fillAmount = _currentShield / 100.0f;
         m_MyAnimationShield.Play(m_ShieldClip.name);
     }
@@ -88,7 +88,7 @@ public class InterfaceManager : MonoBehaviour
         if (Physics.Raycast(GameController.GetGameController().GetPlayer().m_CurrentWeapon.m_Camera.transform.position, GameController.GetGameController().GetPlayer().m_CurrentWeapon.m_Camera.transform.forward, out l_raycastHit, 100.0f, m_LayerMask.value))
         {
             m_Crosshair.color = m_EnemyCrosshairColor;
-            Debug.Log("Color");
+            
         }
         else
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using System;
 
 public class DronEnemy : MonoBehaviour
 {
@@ -56,8 +57,20 @@ public class DronEnemy : MonoBehaviour
 
     public GameObject m_DieEffect;
     public Transform m_EffectPositionDrone;
+
+    public float m_StunTime;
+    IState m_PreviousState;
+    bool m_IsDead = false;
+
+    bool m_Hitted = false;
+
+
+
+
+
     private void Start()
     {
+        m_IsDead = false;
         SetIdleState();
         m_CurrentHealth = m_MaxHealth;
         m_LifeBarImage.fillAmount = m_CurrentHealth;
@@ -154,30 +167,7 @@ public class DronEnemy : MonoBehaviour
 
 
     }
-    /*IEnumerator RotateDron()
-    {
-        float l_StartRotation = transform.eulerAngles.y;
-        float l_EndRotation = l_StartRotation + 360.0f;
-        float l_YRotation = l_StartRotation;
-
-        while (l_YRotation <= l_EndRotation)
-        {
-            m_NavMeshAgent.isStopped = true;
-            l_YRotation += m_RotationSpeed * Time.deltaTime;
-            transform.eulerAngles =  new Vector3(transform.eulerAngles.x, l_YRotation, transform.eulerAngles.z);
-            if (SeePlayer())    
-            {
-
-                SetChaseState();
-                
-            }
-
-            
-            yield return null;
-        }
-
-    }*/
-
+    
     bool PatrolTargetPositionArrived()
     {
         return !m_NavMeshAgent.hasPath && !m_NavMeshAgent.pathPending && m_NavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete;
@@ -234,7 +224,7 @@ public class DronEnemy : MonoBehaviour
         {
             MoveToNextPatrolPosition();
         }
-        if (HearsPlayer())
+        if (HearsPlayer() && m_State != IState.ALERT)
         {
 
             SetAlertState();
@@ -275,17 +265,20 @@ public class DronEnemy : MonoBehaviour
         }
     }
 
-    void SetHitState()
+    void SetHitState(IState state)
     {
+        m_PreviousState = state;
         m_State = IState.HIT;
     }
     void UpdateHitState()
     {
-
+        
+        StartCoroutine(HitDelay(m_PreviousState));
     }
 
     void SetDieState()
     {
+        m_IsDead = true;
         StartCoroutine(DieDrone());
         m_State = IState.DIE;
 
@@ -340,7 +333,7 @@ public class DronEnemy : MonoBehaviour
 
         if (Vector3.Distance(transform.position, l_PlayerPosition) >= m_MaxDistanceChase)
         {
-            Debug.Log("hello");
+            
             SetPatrolState();
         }
 
@@ -348,16 +341,45 @@ public class DronEnemy : MonoBehaviour
 
     public void Hit(float _damage)
     {
-        if (m_CurrentHealth > 0.0f)
+        if (!m_IsDead && m_Hitted == false)
         {
-            m_CurrentHealth -= _damage;
-            m_LifeBarImage.fillAmount = m_CurrentHealth / 100.0f;
+            m_Hitted = true;
+            if (m_CurrentHealth > 0.0f)
+            {
+                m_CurrentHealth -= _damage;
+                m_LifeBarImage.fillAmount = m_CurrentHealth / 100.0f;
+                SetHitState(m_State);
 
+            }
+            if (m_CurrentHealth <= 0.0f)
+            {
+                SetDieState();
+            }
+            StartCoroutine(DroneHitCouldown());
+           
         }
-        if(m_CurrentHealth <= 0.0f)
+       
+    }
+    IEnumerator DroneHitCouldown()
+    {
+
+        yield return new WaitForSeconds(1f);
+        m_Hitted = false;
+    }
+   
+
+    IEnumerator HitDelay(IState state)
+    {
+        yield return new WaitForSeconds(m_StunTime);
+        if(state == IState.PATROL || state == IState.IDLE)
         {
-            SetDieState();
+            SetAlertState();
         }
+        else
+        {
+            m_State = state;
+        }
+       
     }
 
     void UpdateLifeBarPosition()

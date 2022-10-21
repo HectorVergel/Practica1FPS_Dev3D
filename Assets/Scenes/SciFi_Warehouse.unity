@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.634
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.3598366, g: 0.40105233, b: 0.46589863, a: 0.634}
+  m_IndirectSpecularColor: {r: 0.24639153, g: 0.2826927, b: 0.30936137, a: 0.634}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: d0be4b2b0e43ef14fa086ef8d382537c,
+  m_LightingDataAsset: {fileID: 112000000, guid: 0dd6084ee0dc11141abf8e3af1bf81b9,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 47ca483db62064046b4e745faa63ca1e,
     type: 2}
@@ -6741,7 +6741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69.41374, y: -3.1285706}
+  m_AnchoredPosition: {x: 38.5, y: -3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267151455
@@ -11684,7 +11684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -19.8, y: -1.1}
+  m_AnchoredPosition: {x: -25.1, y: -1.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &472261301
@@ -14391,6 +14391,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 613702759}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &615015022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2847973636155658650, guid: 8dcf07cd68e026c41ba95159493cf863,
+    type: 3}
+  m_PrefabInstance: {fileID: 2847973636325781355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &615015023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615015022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7cc98ad6b2c2e4f8f2d3df1fc6d5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Life: 0
+  m_DroneEnemy: {fileID: 677691775}
 --- !u!1001 &615399580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17673,6 +17693,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 677055145}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &677691775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2847973635771907159, guid: 8dcf07cd68e026c41ba95159493cf863,
+    type: 3}
+  m_PrefabInstance: {fileID: 2847973636325781355}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aefa7187ad6698b4693b6849b45acc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &679823052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9222408220077309190, guid: 1b2e0c15a34b5e24ea266246ee7534f8,
@@ -45859,7 +45891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20.1, y: -1.5258942}
+  m_AnchoredPosition: {x: 14.8, y: -1.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632922826
@@ -48600,7 +48632,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -72.58636, y: 1.8711243}
+  m_AnchoredPosition: {x: -103.5, y: 2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1723966861
@@ -66562,6 +66594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847973635771907159, guid: 8dcf07cd68e026c41ba95159493cf863,
+        type: 3}
+      propertyPath: m_StunTime
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2847973635771907159, guid: 8dcf07cd68e026c41ba95159493cf863,
         type: 3}

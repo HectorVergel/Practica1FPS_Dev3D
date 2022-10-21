@@ -6,6 +6,7 @@ public interface ILevelManager
 {
     void SetNewCheckPoint(Transform checkpoint);
 
+    void LoadNewScene(string sceneName);
     Transform GetLastCheckPoint();
 }
 public class Level2Controller : MonoBehaviour, ILevelManager
@@ -35,5 +36,10 @@ public class Level2Controller : MonoBehaviour, ILevelManager
     {
         Transform l_newCheckpoint = (Transform)m_Level2ChekcPoints.Peek();
         return l_newCheckpoint;
+    }
+
+    public void LoadNewScene(string newScene)
+    {
+        SceneManager.LoadSceneAsync(newScene);
     }
 }

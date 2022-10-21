@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Bullet : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class Bullet : MonoBehaviour
     private Vector3 m_BulletDirection;
     public GameObject m_decalPrefab;
     TCObjectPool m_DecalPool;
-
     private void Start()
     {
         m_DecalPool = new TCObjectPool(20,m_decalPrefab);
@@ -27,8 +27,8 @@ public class Bullet : MonoBehaviour
         {
             if (l_raycastHit.collider.tag == "DroneCollider")
             {
-
                 l_raycastHit.collider.GetComponent<HitCollider>().Hit();
+               
             }
             if (l_raycastHit.collider.tag == "Player")
             {
