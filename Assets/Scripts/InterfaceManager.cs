@@ -12,6 +12,8 @@ public class InterfaceManager : MonoBehaviour
     public Image m_HealthImage;
     public Image m_ShieldImage;
     public Image m_Crosshair;
+    public GameObject m_RifleImage;
+    public GameObject m_PistolImage;
     public Color m_EnemyCrosshairColor;
     public Color m_CrosshairColor;
 
@@ -79,6 +81,14 @@ public class InterfaceManager : MonoBehaviour
         UpdateHealthInterface(l_GameControllerData.m_Health);
         UpdateShieldInterface(l_GameControllerData.m_Shield);
         UpdateBulletInterface(l_GameControllerData.m_CurrentBullets, l_GameControllerData.m_MaxBullets);
+        
+    }
+
+    public void UpdateWeaponImage()
+    {
+
+        m_PistolImage.SetActive(!m_PistolImage.activeInHierarchy);
+        m_RifleImage.SetActive(!m_RifleImage.activeInHierarchy);
         
     }
 
