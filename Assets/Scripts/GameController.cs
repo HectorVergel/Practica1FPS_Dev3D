@@ -105,6 +105,11 @@ public class GameController : MonoBehaviour
     {
         m_Interface = _interfacePlayer;
     }
+
+    public InterfaceManager GetInterface()
+    {
+        return m_Interface;
+    }
     public void RestartGame()
     {
         m_Player.RestartGame();

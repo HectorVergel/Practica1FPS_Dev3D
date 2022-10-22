@@ -86,11 +86,16 @@ public class FPSPlayerController : MonoBehaviour
     public static Action<int,int> OnReload;
     public static Action<int> OnPickAmmo;
     public static Action OnShoot;
+    public WeaponManager m_WeaponManager;
 
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
     public KeyCode m_DebugLockKeyCode = KeyCode.O;
     bool m_AngleLocked = false;
     bool m_AimLocked = true;
+
+    public float m_AimingFOV;
+    public float m_NotAimingFOV;
+    bool m_Aiming;
 
     [Header("Animations")]
     public Animation m_MyAnimation;
@@ -191,27 +196,22 @@ public class FPSPlayerController : MonoBehaviour
         else
         {
             m_IsRunning = false;
+            if (m_FOV > m_NormalSpeedFOV && !m_Aiming)
+            {
+                m_FOV -= m_IncreaseSpeedFOV * Time.deltaTime;
+            }
         }
         if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading && m_MaxAmountBullets > 0)
         {
             m_CurrentWeapon.Reload();
         }
-        else
-        {
-
-            if (m_FOV > m_NormalSpeedFOV)
-            {
-                m_FOV -= m_IncreaseSpeedFOV * Time.deltaTime;
-            }
-
-
-        }
+        
 
 
         CheckIfMoving(l_Direction);
 
-        //Set FOV
-        m_Camera.fieldOfView = Mathf.Clamp(m_FOV, m_NormalSpeedFOV, m_FastSpeedFOV);
+      
+        
 
 
         l_Direction.Normalize();
@@ -243,15 +243,31 @@ public class FPSPlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            m_Camera.fieldOfView = 40.0f;
+            m_Aiming = true;
+            if (m_FOV > m_AimingFOV)
+            {
+                m_FOV -= m_IncreaseSpeedFOV * Time.deltaTime;
+            }
+            
         }
         else
         {
-            m_Camera.fieldOfView = 60.0f;
+            m_Aiming = false;
+            if (m_FOV < m_NotAimingFOV)
+            {
+                m_FOV += m_IncreaseSpeedFOV * Time.deltaTime;
+            }
+           
         }
+        m_Camera.fieldOfView = m_FOV;
 
         if (m_FireTimer < m_FireRate)
             m_FireTimer += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            m_WeaponManager.SwapWeapon();
+        }
 
     }
 

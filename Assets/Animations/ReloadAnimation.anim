@@ -706,7 +706,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 1.1666666
+        time: 1
         value: {x: -0.00012350571, y: 0.16222766, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -716,7 +716,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1.4
-        value: {x: 0.024, y: -0.011, z: 0}
+        value: {x: 0.093, y: 0.063, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -724,17 +724,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 1.7333333
-        value: {x: -0.003, y: 0.134, z: 0}
-        inSlope: {x: -0.020000001, y: 0.13999997, z: 0}
-        outSlope: {x: -0.020000001, y: 0.13999997, z: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-      - serializedVersion: 3
-        time: 2
-        value: {x: -0.006, y: 0.155, z: 0}
+        time: 1.9666667
+        value: {x: -0.00012350571, y: 0.16222766, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -744,7 +735,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: PitchController/WeaponHandler/Rifle/Rifle 1/Rifle 1/Magazine1
+    path: PitchController/WeaponHandler/Rifle/Rifle 1 /Rifle 1/Magazine1
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -3482,7 +3473,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 1.1666666
+        time: 1
         value: -0.00012350571
         inSlope: 0
         outSlope: 0
@@ -3492,7 +3483,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.4
-        value: 0.024
+        value: 0.093
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3500,17 +3491,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.7333333
-        value: -0.003
-        inSlope: -0.020000001
-        outSlope: -0.020000001
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2
-        value: -0.006
+        time: 1.9666667
+        value: -0.00012350571
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3521,14 +3503,14 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: PitchController/WeaponHandler/Rifle/Rifle 1/Rifle 1/Magazine1
+    path: PitchController/WeaponHandler/Rifle/Rifle 1 /Rifle 1/Magazine1
     classID: 4
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 1.1666666
+        time: 1
         value: 0.16222766
         inSlope: 0
         outSlope: 0
@@ -3538,7 +3520,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.4
-        value: -0.011
+        value: 0.063
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3546,17 +3528,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.7333333
-        value: 0.134
-        inSlope: 0.13999997
-        outSlope: 0.13999997
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2
-        value: 0.155
+        time: 1.9666667
+        value: 0.16222766
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3567,14 +3540,14 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: PitchController/WeaponHandler/Rifle/Rifle 1/Rifle 1/Magazine1
+    path: PitchController/WeaponHandler/Rifle/Rifle 1 /Rifle 1/Magazine1
     classID: 4
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 1.1666666
+        time: 1
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3592,16 +3565,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.7333333
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2
+        time: 1.9666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3613,7 +3577,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: PitchController/WeaponHandler/Rifle/Rifle 1/Rifle 1/Magazine1
+    path: PitchController/WeaponHandler/Rifle/Rifle 1 /Rifle 1/Magazine1
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:

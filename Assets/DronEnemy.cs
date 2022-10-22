@@ -278,7 +278,7 @@ public class DronEnemy : MonoBehaviour
 
     void SetDieState()
     {
-        m_IsDead = true;
+        
         StartCoroutine(DieDrone());
         m_State = IState.DIE;
 
@@ -291,8 +291,12 @@ public class DronEnemy : MonoBehaviour
 
     IEnumerator DieDrone()
     {
-        Instantiate(m_DieEffect, m_EffectPositionDrone.position, Quaternion.identity);
-        SetDieAnimation();
+        if (!m_IsDead)
+        {
+            Instantiate(m_DieEffect, m_EffectPositionDrone.position, Quaternion.identity);
+            SetDieAnimation();
+            m_IsDead = true;
+        }
         yield return new WaitForSeconds(m_DieAnimationDrone.length);
         Destroy(gameObject);
     }

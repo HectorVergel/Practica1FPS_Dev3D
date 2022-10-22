@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     public float m_FireRate;
     public int m_MaxAmountBullets;
     public int m_MaxChargerBullets;
-    private int m_CurrentBullets;
+    public int m_CurrentBullets;
 
 
     [Header("Render")]
