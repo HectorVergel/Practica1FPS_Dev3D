@@ -345,21 +345,25 @@ public class DronEnemy : MonoBehaviour
 
     public void Hit(float _damage)
     {
-        if (!m_IsDead && m_Hitted == false)
+        if (!m_IsDead)
         {
             m_Hitted = true;
             if (m_CurrentHealth > 0.0f)
             {
                 m_CurrentHealth -= _damage;
                 m_LifeBarImage.fillAmount = m_CurrentHealth / 100.0f;
+                
                 SetHitState(m_State);
+                
+                
 
             }
             if (m_CurrentHealth <= 0.0f)
             {
+                StopAllCoroutines();
                 SetDieState();
             }
-            StartCoroutine(DroneHitCouldown());
+            
            
         }
        
@@ -383,6 +387,7 @@ public class DronEnemy : MonoBehaviour
         {
             m_State = state;
         }
+        StartCoroutine(DroneHitCouldown());
        
     }
 

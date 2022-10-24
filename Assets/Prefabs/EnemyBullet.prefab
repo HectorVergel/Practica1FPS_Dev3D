@@ -47,7 +47,7 @@ MonoBehaviour:
   m_BulletSpeed: 50
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1032
   m_BulletDamage: 30
   m_decalPrefab: {fileID: 6745360622816664297, guid: c47deb140838edd44b61c4d552b5f2b5,
     type: 3}

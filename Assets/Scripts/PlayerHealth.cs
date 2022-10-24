@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
        
     }
 
-    public void AddShield(int _amount)
+    public void AddShield(float _amount)
     {
         if (m_CurrentShield < m_MaxShield)
         {
@@ -116,5 +116,10 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public float GetLife()
     {
         return m_CurrentHealth;
+    }
+
+    public float GetShield()
+    {
+        return m_CurrentShield;
     }
 }

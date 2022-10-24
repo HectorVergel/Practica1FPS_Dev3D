@@ -201,7 +201,7 @@ public class FPSPlayerController : MonoBehaviour
                 m_FOV -= m_IncreaseSpeedFOV * Time.deltaTime;
             }
         }
-        if (Input.GetKeyDown(m_ReloadKey) && !m_Reloading && m_MaxAmountBullets > 0)
+        if (Input.GetKeyDown(m_ReloadKey))
         {
             m_CurrentWeapon.Reload();
         }
@@ -359,11 +359,7 @@ public class FPSPlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator EndShoot()
-    {
-        yield return new WaitForSeconds(m_ShootAnimation.length);
-        m_Shooting = false;
-    }
+   
 
 
     private void OnTriggerEnter(Collider other)
@@ -375,6 +371,19 @@ public class FPSPlayerController : MonoBehaviour
         else if(other.tag == "DeadZone")
         {
             m_PlayerHealth.OnDie();
+        }
+        else if (other.tag == "MovingPlatform")
+        {
+            transform.parent = other.transform;
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "MovingPlatform")
+        {
+            transform.parent = null;
         }
     }
 

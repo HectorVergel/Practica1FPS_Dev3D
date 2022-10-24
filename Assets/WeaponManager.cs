@@ -21,6 +21,7 @@ public class WeaponManager : MonoBehaviour
                 GameController.GetGameController().GetPlayer().GetComponent<FPSPlayerController>().m_CurrentWeapon = weapon;
                 GameController.GetGameController().GetInterface().UpdateBulletInterface(weapon.m_CurrentBullets, weapon.m_MaxAmountBullets);
                 GameController.GetGameController().GetInterface().UpdateWeaponImage();
+                weapon.m_Shooting = false;
             }
         }
 

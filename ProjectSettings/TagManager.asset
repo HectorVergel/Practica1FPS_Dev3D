@@ -8,6 +8,8 @@ TagManager:
   - DroneCollider
   - Bullet
   - ShootingElement
+  - MovingPlatform
+  - Turret
   layers:
   - Default
   - TransparentFX

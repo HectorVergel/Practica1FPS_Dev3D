@@ -39,6 +39,11 @@ public class Bullet : MonoBehaviour
 
                 l_raycastHit.collider.GetComponent<ShootingElement>().OnBulletHit();
             }
+            if (l_raycastHit.collider.tag == "Turret")
+            {
+                l_raycastHit.collider.GetComponent<TurretEnemy>().Hit(m_BulletDamage);
+
+            }
             if (m_decalPrefab != null)
             {
                 CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);

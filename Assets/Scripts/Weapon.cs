@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
     [Header("Shoot")]
     public GameObject m_BulletPrefab;
     public int m_WeaponDamage;
-    bool m_Shooting;
+    public bool m_Shooting;
     public Transform m_FirePoint;
     public Camera m_Camera;
     public GameObject m_ShootCanonEffect;
@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
     public int m_MaxAmountBullets;
     public int m_MaxChargerBullets;
     public int m_CurrentBullets;
+    bool m_IsReloading;
 
 
     [Header("Render")]
@@ -41,12 +42,23 @@ public class Weapon : MonoBehaviour
     }
     public void Reload()
     {
-        m_MaxAmountBullets = m_MaxAmountBullets - (m_MaxChargerBullets - m_CurrentBullets);
-        m_MaxAmountBullets = (int)Mathf.Clamp(m_MaxAmountBullets, 0, m_MaxAmountBullets);
-        m_CurrentBullets = m_MaxChargerBullets;
-        m_CurrentBullets = (int)Mathf.Clamp(m_CurrentBullets, 0, m_MaxChargerBullets);
-        FPSPlayerController.OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
-        SetReloadAnimation();
+        if (m_CurrentBullets < m_MaxChargerBullets && !m_IsReloading && m_MaxAmountBullets > 0)
+        {
+            m_IsReloading = true;
+
+            m_MaxAmountBullets = m_MaxAmountBullets - (m_MaxChargerBullets - m_CurrentBullets);
+            m_MaxAmountBullets = Mathf.Clamp(m_MaxAmountBullets, 0, m_MaxAmountBullets);
+           
+            m_CurrentBullets += m_MaxAmountBullets;
+            
+            m_CurrentBullets = Mathf.Clamp(m_CurrentBullets, 0, m_MaxChargerBullets);
+            FPSPlayerController.OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
+
+            
+           
+            SetReloadAnimation();
+        }
+        
 
     }
 
@@ -89,10 +101,11 @@ public class Weapon : MonoBehaviour
     {
         m_MyAnimation.CrossFade(m_ReloadAnimation.name, 0.1f);
         m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name, 0.1f);
+        StartCoroutine(EndReload());
     }
     bool CanShot()
     {
-        return !m_Shooting;
+        return !m_Shooting && !m_IsReloading;
     }
 
      public void AddAmmo(int amount)
@@ -104,5 +117,11 @@ public class Weapon : MonoBehaviour
     {
         yield return new WaitForSeconds(m_ShootAnimation.length);
         m_Shooting = false;
+    }
+
+    IEnumerator EndReload()
+    {
+        yield return new WaitForSeconds(m_ReloadAnimation.length);
+        m_IsReloading = false;
     }
 }
