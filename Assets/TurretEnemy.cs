@@ -71,7 +71,7 @@ public class TurretEnemy : MonoBehaviour
     }
     private void Update()
     {
-        UpdateLifeBarPosition();
+        
         switch (m_State)
         {
             case IState.IDLE:
@@ -275,8 +275,5 @@ public class TurretEnemy : MonoBehaviour
 
    
 
-    void UpdateLifeBarPosition()
-    {
-        m_LifeBarRectTransform.position = Camera.main.WorldToScreenPoint(m_LifeBarAnchorPosition.position + Vector3.up * m_HealthBarOffset);
-    }
+    
 }
