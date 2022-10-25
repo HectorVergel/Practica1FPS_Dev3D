@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TurretEnemy : MonoBehaviour
+public class TurretEnemy : IEnemy
 {
     public enum IState
     {
@@ -51,7 +51,6 @@ public class TurretEnemy : MonoBehaviour
 
     public float m_StunTime;
     bool m_IsDead = false;
-    public float m_HealthBarOffset;
 
 
 
@@ -239,7 +238,7 @@ public class TurretEnemy : MonoBehaviour
             m_IsDead = true;
         }
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
   
@@ -270,10 +269,17 @@ public class TurretEnemy : MonoBehaviour
         }
 
     }
-   
 
 
-   
 
-    
+    public override void RestartGame()
+    {
+        SetAlertState();
+        m_CurrentHealth = m_MaxHealth;
+        m_IsDead = false;
+        m_LifeBarImage.fillAmount=1.0f;
+        gameObject.SetActive(true);
+    }
+
+
 }

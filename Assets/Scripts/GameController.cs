@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Unity.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
@@ -10,10 +12,13 @@ public class GameController : MonoBehaviour
     InterfaceManager m_Interface;
     ILevelManager m_LevelManager;
     public static GameController m_GameController = null;
+    Item[] m_Items;
+    IEnemy[] m_Enemies;
     private void Start()
     {
-        DontDestroyOnLoad(this.gameObject); 
-       
+        DontDestroyOnLoad(this.gameObject);
+        SetAllItems();
+        SetAllEnemies();
     }
 
     public static GameController GetGameController()
@@ -114,7 +119,36 @@ public class GameController : MonoBehaviour
     {
         m_Player.RestartGame();
         m_Interface.RestartGame();
-
+        RestartItems();
+        RestartEnemies();
+        
         //Añadir enemigos etc
+    }
+
+    void SetAllItems()
+    {
+        m_Items = FindObjectsOfType<Item>();
+
+    }
+
+    void RestartItems()
+    {
+        foreach(Item item in m_Items)
+        {
+            item.RestartGame();
+        }
+    }
+
+    void SetAllEnemies()
+    {
+        m_Enemies = FindObjectsOfType<IEnemy>();
+    }
+
+    void RestartEnemies()
+    {
+        foreach(IEnemy enemy in m_Enemies)
+        {
+            enemy.RestartGame();
+        }
     }
 }

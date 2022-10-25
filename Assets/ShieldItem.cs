@@ -12,7 +12,8 @@ public class ShieldItem : Item
         if (Player.m_PlayerHealth.GetShield() < Player.m_PlayerHealth.m_MaxShield)
         {
             Player.m_PlayerHealth.AddShield(m_ShieldAdded);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+
         }
     }
 

@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void OnDie()
     {
         m_CurrentHealth = 0.0f;
-        GameController.GetGameController().RestartGame();
+        GameController.GetGameController().GetInterface().SetDieInterface();
     }
     
     IEnumerator FadeIn()
@@ -81,6 +81,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         
         float l_CurrentAlpha = 0.5f;
+        
         while (m_DamageEffect.color.a > 0.0f)
         {
             l_CurrentAlpha -= m_AlphaSpeed * Time.deltaTime;

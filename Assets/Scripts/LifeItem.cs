@@ -25,7 +25,7 @@ public class LifeItem : Item
         if(Player.m_PlayerHealth.GetLife() < Player.m_PlayerHealth.m_MaxHealth)
         {
             Player.m_PlayerHealth.AddHealth(m_HealthAdded);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

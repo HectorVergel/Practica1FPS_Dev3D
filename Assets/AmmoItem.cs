@@ -11,7 +11,7 @@ public class AmmoItem : Item
     {
 
         Player.m_CurrentWeapon.AddAmmo(m_AmmoAdded);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
 
 
     }

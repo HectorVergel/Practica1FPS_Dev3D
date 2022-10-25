@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using System;
 
-public class DronEnemy : MonoBehaviour
+public class DronEnemy : IEnemy
 {
     public enum IState
     {
@@ -50,6 +50,7 @@ public class DronEnemy : MonoBehaviour
 
     public Animation m_MyAnimation;
     public AnimationClip m_DieAnimationDrone;
+    public AnimationClip m_IdleAnimationDrone;
 
     public Image m_LifeBarImage;
     public Transform m_LifeBarAnchorPosition;
@@ -82,7 +83,6 @@ public class DronEnemy : MonoBehaviour
     }
     private void Update()
     {
-        UpdateLifeBarPosition();
         switch (m_State)
         {
             case IState.IDLE:
@@ -298,13 +298,18 @@ public class DronEnemy : MonoBehaviour
             m_IsDead = true;
         }
         yield return new WaitForSeconds(m_DieAnimationDrone.length);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     void SetDieAnimation()
     {
         
         m_MyAnimation.CrossFade(m_DieAnimationDrone.name, 0.1f);
+    }
+
+    void SetIdleAnimation()
+    {
+        m_MyAnimation.CrossFade(m_IdleAnimationDrone.name, 0.1f);
     }
 
     void SetChaseState()
@@ -391,10 +396,16 @@ public class DronEnemy : MonoBehaviour
        
     }
 
-    void UpdateLifeBarPosition()
+    
+
+    public override void RestartGame()
     {
-        Vector3 l_Position = GameController.GetGameController().GetPlayer().m_Camera.WorldToViewportPoint(m_LifeBarAnchorPosition.position);
-        m_LifeBarRectTransform.anchoredPosition = new Vector3(l_Position.x * 1920.0f, -(1080.0f - l_Position.y * 1080.0f), 0.0f);
-        m_LifeBarRectTransform.gameObject.SetActive(l_Position.z > 0.0f);
+        m_State = IState.IDLE;
+        m_CurrentHealth = m_MaxHealth;
+        m_IsDead = false;
+        m_Hitted = false;
+        m_LifeBarImage.fillAmount = 1.0f;
+        SetIdleAnimation();
+        gameObject.SetActive(true);
     }
 }

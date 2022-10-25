@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class InterfaceManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class InterfaceManager : MonoBehaviour
     public Image m_HealthImage;
     public Image m_ShieldImage;
     public Image m_Crosshair;
+    public Image m_DieImage;
     public GameObject m_RifleImage;
     public GameObject m_PistolImage;
     public Color m_EnemyCrosshairColor;
@@ -24,6 +26,10 @@ public class InterfaceManager : MonoBehaviour
 
     public Camera m_MainCamera;
     public LayerMask m_LayerMask;
+
+    public float m_AlphaSpeed;
+
+    public delegate void FadeOutFn();
     private void Start()
     {
         GameController.GetGameController().SetInterface(this);
@@ -105,5 +111,37 @@ public class InterfaceManager : MonoBehaviour
             m_Crosshair.color = m_CrosshairColor;
         }
 
+    }
+
+    public void SetDieInterface()
+    {
+        StartCoroutine(FadeIn());
+    }
+
+    IEnumerator FadeIn()
+    {
+        float l_CurrentAlpha = 0.0f;
+        while (m_DieImage.color.a <= 1.0f)
+        {
+            l_CurrentAlpha += m_AlphaSpeed * Time.deltaTime;
+            m_DieImage.color = new Color(m_DieImage.color.r, m_DieImage.color.g, m_DieImage.color.b, l_CurrentAlpha);
+            yield return null;
+        }
+        yield return new WaitForSeconds(4f);
+        GameController.GetGameController().RestartGame();
+        StartCoroutine(FadeOut());
+    }
+
+    IEnumerator FadeOut()
+    {
+        float l_CurrentAlpha = 1.0f;
+        while (m_DieImage.color.a >= 0f)
+        {
+            l_CurrentAlpha -= m_AlphaSpeed * Time.deltaTime;
+            m_DieImage.color = new Color(m_DieImage.color.r, m_DieImage.color.g, m_DieImage.color.b, l_CurrentAlpha);
+            yield return null;
+        }
+       
+        
     }
 }
