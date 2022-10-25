@@ -7,6 +7,6 @@ public class BillboardScript : MonoBehaviour
     
     void Update()
     {
-        transform.LookAt(GameController.GetGameController().GetPlayer().transform.position);
+        transform.LookAt(Camera.main.transform.position, Vector3.up);
     }
 }

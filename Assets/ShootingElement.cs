@@ -7,6 +7,11 @@ public class ShootingElement : MonoBehaviour
     public Transform m_EffectPoint;
     public int m_ScoreAdded;
     public ShootingGallery m_GalleryHUD;
+
+    private void Start()
+    {
+       
+    }
     public void OnBulletHit()
     {
         if (m_Effect != null)
@@ -14,9 +19,14 @@ public class ShootingElement : MonoBehaviour
             Instantiate(m_Effect, m_EffectPoint.position, Quaternion.identity);
         }
         m_GalleryHUD.AddScore(m_ScoreAdded);
-        this.gameObject.SetActive(false);
+        StartCoroutine(DisableState());
     }
 
+    IEnumerator DisableState()
+    {
+        yield return new WaitForSeconds(0.25f);
+        this.gameObject.SetActive(false);
 
+    }
 
 }
