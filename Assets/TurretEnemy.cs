@@ -127,11 +127,12 @@ public class TurretEnemy : IEnemy
 
     void RotateTurret()
     {
-       
 
+       
 
         if (m_YRotation < m_EndRotation)
         {
+            
             m_YRotation += m_RotationSpeed * Time.deltaTime;
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, m_YRotation, transform.eulerAngles.z);
             if (SeePlayer())
@@ -142,7 +143,10 @@ public class TurretEnemy : IEnemy
             }
 
         }
-       
+        else
+        {
+            SetAlertState();
+        }
 
 
     }

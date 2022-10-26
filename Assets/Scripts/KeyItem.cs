@@ -4,6 +4,7 @@ public class KeyItem : Item
 
     public float m_DistanceUI;
     public GameObject m_UIPrefab;
+    public bool m_SetsCinematic;
     public override void Update()
     {
         if (Vector3.Distance(transform.position, GameController.GetGameController().GetPlayer().transform.position) <= m_DistanceUI)
@@ -20,6 +21,10 @@ public class KeyItem : Item
     public override void Pick(FPSPlayerController Player)
     {
         Player.m_HaveKey = true;
+        if (m_SetsCinematic)
+        {
+            FindObjectOfType<EventLevelInside>().StartCinematic();
+        }
         gameObject.SetActive(false);
 
     }
