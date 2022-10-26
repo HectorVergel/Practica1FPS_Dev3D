@@ -20,6 +20,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public Image m_DamageEffect;
     public float m_AlphaSpeed;
 
+    bool m_EffectPlaying;
+
     private void Start()
     {
         m_CurrentHealth = GameController.GetGameController().GetPlayerLife();
@@ -31,7 +33,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         if(m_CurrentHealth > 0.0f)
         {
-            StartCoroutine(FadeIn());
+            if (!m_EffectPlaying)
+            {
+                m_EffectPlaying = true;
+                StartCoroutine(FadeIn());
+            }
+            
             if (m_CurrentShield > 0.0f)
             {
                 m_CurrentHealth -= _amountDamage * 0.25f;
@@ -67,7 +74,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     IEnumerator FadeIn()
     {
         float l_CurrentAlpha = 0.0f;
-        while (m_DamageEffect.color.a <= 0.5f)
+        while (m_DamageEffect.color.a <= 1f)
         {
             l_CurrentAlpha += m_AlphaSpeed * Time.deltaTime;
             m_DamageEffect.color = new Color(m_DamageEffect.color.r, m_DamageEffect.color.g, m_DamageEffect.color.b, l_CurrentAlpha);
@@ -80,7 +87,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     IEnumerator FadeOut()
     {
         
-        float l_CurrentAlpha = 0.5f;
+        float l_CurrentAlpha = 1f;
         
         while (m_DamageEffect.color.a > 0.0f)
         {
@@ -88,6 +95,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
             m_DamageEffect.color = new Color(m_DamageEffect.color.r, m_DamageEffect.color.g, m_DamageEffect.color.b, l_CurrentAlpha);
             yield return null;
         }
+        m_EffectPlaying = false;
 
 
     }

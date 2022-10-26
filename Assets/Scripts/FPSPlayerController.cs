@@ -96,6 +96,9 @@ public class FPSPlayerController : MonoBehaviour
     public float m_AimingFOV;
     public float m_NotAimingFOV;
     bool m_Aiming;
+    public TCObjectPool m_DecalPool;
+
+
 
     [Header("Animations")]
     public Animation m_MyAnimation;
@@ -104,9 +107,7 @@ public class FPSPlayerController : MonoBehaviour
     public AnimationClip m_ReloadAnimation;
     public AnimationClip m_RunAnimation;
 
-    bool m_IsRunning = false;
-
-    bool m_Shooting = false;
+    
 
     public PlayerHealth m_PlayerHealth;
 
@@ -116,6 +117,7 @@ public class FPSPlayerController : MonoBehaviour
     Quaternion m_StartRotation;
     void Start()
     {
+        m_DecalPool = new TCObjectPool(20, m_decalPrefab);
         m_CurrentWeapon = FindObjectOfType<Weapon>();
         m_Yaw = transform.rotation.y;
         m_Pitch = pitchController.localRotation.x;
@@ -185,7 +187,6 @@ public class FPSPlayerController : MonoBehaviour
         if (Input.GetKey(m_RunKeyCode))
         {
            l_Speed = m_Speed * m_FastSpeedMultiplier;
-           m_IsRunning = true;
             if (m_FOV < m_FastSpeedFOV)
             {
                 m_FOV += m_IncreaseSpeedFOV * Time.deltaTime;
@@ -195,7 +196,6 @@ public class FPSPlayerController : MonoBehaviour
         }
         else
         {
-            m_IsRunning = false;
             if (m_FOV > m_NormalSpeedFOV && !m_Aiming)
             {
                 m_FOV -= m_IncreaseSpeedFOV * Time.deltaTime;
@@ -282,16 +282,6 @@ public class FPSPlayerController : MonoBehaviour
         m_MyAnimation.CrossFade(m_IdleAnimation.name);
     }
 
-
-    void SetRunAnimation()
-    {
-        
-        m_MyAnimation.CrossFade(m_RunAnimation.name);
-        m_MyAnimation.CrossFadeQueued(m_IdleAnimation.name);
-            
-        
-       
-    }
 
     
 

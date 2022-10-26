@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded21f6540252ef40a40d41e2f8d45e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BulletSpeed: 50
+  m_BulletSpeed: 80
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 1536
-  m_BulletDamage: 20
+  m_BulletDamage: 5
   m_decalPrefab: {fileID: 6745360622816664297, guid: c47deb140838edd44b61c4d552b5f2b5,
     type: 3}
 --- !u!65 &8313214762329095494

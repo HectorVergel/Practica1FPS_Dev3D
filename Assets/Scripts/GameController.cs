@@ -10,13 +10,14 @@ public class GameController : MonoBehaviour
     float m_PlayerShield;
     FPSPlayerController m_Player;
     InterfaceManager m_Interface;
-    ILevelManager m_LevelManager;
+    LevelController m_LevelManager;
     public static GameController m_GameController = null;
     Item[] m_Items;
     IEnemy[] m_Enemies;
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+        Cursor.visible = false;
         SetAllItems();
         SetAllEnemies();
     }
@@ -96,12 +97,12 @@ public class GameController : MonoBehaviour
         m_Player = _player;
     }
 
-    public ILevelManager GetLevel()
+    public LevelController GetLevel()
     {
         return m_LevelManager;
     }
 
-    public void SetLevel(ILevelManager level)
+    public void SetLevel(LevelController level)
     {
         m_LevelManager = level;
     }
@@ -143,6 +144,8 @@ public class GameController : MonoBehaviour
     {
         m_Enemies = FindObjectsOfType<IEnemy>();
     }
+
+   
 
     void RestartEnemies()
     {

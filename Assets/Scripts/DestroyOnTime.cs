@@ -10,11 +10,14 @@ public class DestroyOnTime : MonoBehaviour
     {
         StartCoroutine(DestroyOnTimeFn());
     }
+
    
+
+
     IEnumerator DestroyOnTimeFn()
     {
         yield return new WaitForSeconds(m_DestroyOnTime);
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
 
 

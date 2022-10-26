@@ -10,10 +10,10 @@ public class Bullet : MonoBehaviour
     public float m_BulletDamage;
     private Vector3 m_BulletDirection;
     public GameObject m_decalPrefab;
-    TCObjectPool m_DecalPool;
+    
     private void Start()
     {
-        m_DecalPool = new TCObjectPool(20,m_decalPrefab);
+       
     }
 
     void Update()
@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
     void CreateShootHitParticles(Collider _collider, Vector3 position, Vector3 normal)
     {
 
-        GameObject l_Decal = m_DecalPool.GetNextElement();
+        GameObject l_Decal = GameController.GetGameController().GetPlayer().m_DecalPool.GetNextElement();
         l_Decal.SetActive(true);
         l_Decal.transform.position = position;
         l_Decal.transform.rotation = Quaternion.LookRotation(normal);

@@ -27,6 +27,8 @@ public class InterfaceManager : MonoBehaviour
     public Camera m_MainCamera;
     public LayerMask m_LayerMask;
 
+    public GameObject m_ButtonRetry;
+
     public float m_AlphaSpeed;
 
     public delegate void FadeOutFn();
@@ -115,21 +117,24 @@ public class InterfaceManager : MonoBehaviour
 
     public void SetDieInterface()
     {
+        Cursor.visible = true;
         StartCoroutine(FadeIn());
     }
 
     IEnumerator FadeIn()
     {
         float l_CurrentAlpha = 0.0f;
+        
         while (m_DieImage.color.a <= 1.0f)
         {
             l_CurrentAlpha += m_AlphaSpeed * Time.deltaTime;
             m_DieImage.color = new Color(m_DieImage.color.r, m_DieImage.color.g, m_DieImage.color.b, l_CurrentAlpha);
             yield return null;
         }
-        yield return new WaitForSeconds(4f);
         GameController.GetGameController().RestartGame();
-        StartCoroutine(FadeOut());
+        GameController.GetGameController().GetPlayer().m_CharacterController.enabled = false;
+        yield return new WaitForSeconds(4f);
+        m_ButtonRetry.SetActive(true);
     }
 
     IEnumerator FadeOut()
@@ -143,5 +148,12 @@ public class InterfaceManager : MonoBehaviour
         }
        
         
+    }
+
+    public void OnRetryClick()
+    {
+        GameController.GetGameController().GetPlayer().m_CharacterController.enabled = true;
+        Cursor.visible = false;
+        StartCoroutine(FadeOut());
     }
 }

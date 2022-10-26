@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
 {
     [Header("Shoot")]
     public GameObject m_BulletPrefab;
-    public int m_WeaponDamage;
     public bool m_Shooting;
     public Transform m_FirePoint;
     public Camera m_Camera;
@@ -21,7 +20,8 @@ public class Weapon : MonoBehaviour
     public int m_MaxChargerBullets;
     public int m_CurrentBullets;
     bool m_IsReloading;
-
+    public AudioSource m_ShotSource;
+    
 
     [Header("Render")]
     public GameObject m_WeaponVisuals;
@@ -45,12 +45,13 @@ public class Weapon : MonoBehaviour
         if (m_CurrentBullets < m_MaxChargerBullets && !m_IsReloading && m_MaxAmountBullets > 0)
         {
             m_IsReloading = true;
-
-            m_MaxAmountBullets = m_MaxAmountBullets - (m_MaxChargerBullets - m_CurrentBullets);
-            m_MaxAmountBullets = Mathf.Clamp(m_MaxAmountBullets, 0, m_MaxAmountBullets);
-           
+            int l_previousBullets = m_CurrentBullets;
             m_CurrentBullets += m_MaxAmountBullets;
-            
+            m_MaxAmountBullets -= (m_MaxChargerBullets - l_previousBullets);
+            m_MaxAmountBullets = Mathf.Clamp(m_MaxAmountBullets, 0, m_MaxAmountBullets);
+
+           
+
             m_CurrentBullets = Mathf.Clamp(m_CurrentBullets, 0, m_MaxChargerBullets);
             FPSPlayerController.OnReload.Invoke(m_CurrentBullets, m_MaxAmountBullets);
 
@@ -67,6 +68,7 @@ public class Weapon : MonoBehaviour
 
         if (!CanShot() || m_CurrentBullets == 0) return;
 
+        m_ShotSource.Play();
         GameObject particle = Instantiate(m_ShootCanonEffect, m_FirePoint.position, Quaternion.identity);
         particle.transform.SetParent(m_FirePoint);
 
