@@ -11,6 +11,9 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         GameController.GetGameController().SetLevel(this);
+        GameController.GetGameController().SetAllItems();
+        GameController.GetGameController().SetAllEnemies();
+
         m_LevelChekcPoint = m_SpawnCheckPoint;
         SetPlayer();
     }

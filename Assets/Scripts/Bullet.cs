@@ -11,10 +11,8 @@ public class Bullet : MonoBehaviour
     private Vector3 m_BulletDirection;
     public GameObject m_decalPrefab;
     
-    private void Start()
-    {
-       
-    }
+   
+    
 
     void Update()
     {
@@ -44,7 +42,7 @@ public class Bullet : MonoBehaviour
                 l_raycastHit.collider.GetComponent<TurretEnemy>().Hit(m_BulletDamage);
 
             }
-            if (m_decalPrefab != null)
+            if (m_decalPrefab != null && l_raycastHit.collider.tag != "Turret" && l_raycastHit.collider.tag != "DroneCollider")
             {
                 CreateShootHitParticles(l_raycastHit.collider, l_raycastHit.point, l_raycastHit.normal);
 

@@ -16,10 +16,11 @@ public class GameController : MonoBehaviour
     IEnemy[] m_Enemies;
     private void Start()
     {
+        SetAllEnemies();
+        SetAllItems();
         DontDestroyOnLoad(this.gameObject);
         Cursor.visible = false;
-        SetAllItems();
-        SetAllEnemies();
+       
     }
 
     public static GameController GetGameController()
@@ -123,10 +124,10 @@ public class GameController : MonoBehaviour
         RestartItems();
         RestartEnemies();
         
-        //Añadir enemigos etc
+       
     }
 
-    void SetAllItems()
+    public void SetAllItems()
     {
         m_Items = FindObjectsOfType<Item>();
 
@@ -134,13 +135,14 @@ public class GameController : MonoBehaviour
 
     void RestartItems()
     {
-        foreach(Item item in m_Items)
+        
+        foreach (Item item in m_Items)
         {
             item.RestartGame();
         }
     }
 
-    void SetAllEnemies()
+    public void SetAllEnemies()
     {
         m_Enemies = FindObjectsOfType<IEnemy>();
     }

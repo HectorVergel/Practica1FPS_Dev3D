@@ -85,10 +85,11 @@ public class InterfaceManager : MonoBehaviour
 
     public void RestartGame()
     {
-        GameControllerData l_GameControllerData = Resources.Load<GameControllerData>("GameControllerData");
-        UpdateHealthInterface(l_GameControllerData.m_Health);
-        UpdateShieldInterface(l_GameControllerData.m_Shield);
-        UpdateBulletInterface(l_GameControllerData.m_CurrentBullets, l_GameControllerData.m_MaxBullets);
+        
+        UpdateHealthInterface(GameController.GetGameController().GetPlayer().m_PlayerHealth.m_MaxHealth);
+        UpdateShieldInterface(GameController.GetGameController().GetPlayer().m_PlayerHealth.m_MaxShield);
+        UpdateShieldInterface(GameController.GetGameController().GetPlayer().m_PlayerHealth.m_MaxShield);
+        UpdateBulletInterface(GameController.GetGameController().GetPlayer().m_MaxChargerBullets, GameController.GetGameController().GetPlayer().m_MaxAmountBullets);
         
     }
 

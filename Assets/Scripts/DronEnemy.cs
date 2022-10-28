@@ -64,6 +64,7 @@ public class DronEnemy : IEnemy
     bool m_IsDead = false;
 
     bool m_Hitted = false;
+    public ParticleSystem m_ShootParticle;
 
 
 
@@ -259,6 +260,7 @@ public class DronEnemy : IEnemy
 
         if (m_TimeToShoot >= m_FireRate)
         {
+            m_ShootParticle.Play();
             GameObject go = Instantiate(m_DronBullet, m_ShootPoint.position, Quaternion.identity);
             go.GetComponent<Bullet>().SetBulletDirection(l_ShootDirection);
             m_TimeToShoot = 0.0f;
